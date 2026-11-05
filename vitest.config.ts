@@ -7,7 +7,7 @@ export default defineConfig({
 			include: ["skills/lint-rule-review/scripts"],
 			reporter: ["html", "lcov"],
 		},
-		exclude: ["dist", "node_modules", "skills"],
+		exclude: ["data", "dist", "eval", "node_modules", "skills"],
 		setupFiles: ["console-fail-test/setup"],
 	},
 });
