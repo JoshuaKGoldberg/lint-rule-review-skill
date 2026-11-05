@@ -1,0 +1,14 @@
+{
+	"name": "lint-rule-review",
+	"description": "Reviews custom lint rules by trying to break them.",
+	"owner": {
+		"name": "Josh Goldberg"
+	},
+	"plugins": [
+		{
+			"name": "lint-rule-review",
+			"source": "./",
+			"description": "Reviews custom lint rules by trying to break them."
+		}
+	]
+}

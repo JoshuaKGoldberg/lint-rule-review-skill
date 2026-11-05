@@ -3,3 +3,5 @@
 /coverage
 /dist
 /pnpm-lock.yaml
+/skills/lint-rule-review/assets
+/skills/lint-rule-review/references

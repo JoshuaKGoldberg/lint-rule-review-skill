@@ -1,6 +1,7 @@
 {
 	"name": "lint-rule-review",
 	"version": "0.0.0",
+	"private": true,
 	"description": "Claude Code skill that reviews custom lint rules by trying to break them.",
 	"repository": {
 		"type": "git",
@@ -11,6 +12,7 @@
 		"name": "Josh Goldberg",
 		"email": "git@joshuakgoldberg.com"
 	},
+	"sideEffects": false,
 	"type": "module",
 	"scripts": {
 		"format": "prettier .",

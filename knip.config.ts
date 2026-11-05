@@ -1,8 +1,9 @@
 import type { KnipConfig } from "knip";
 
 export default {
-	entry: ["src/**/*.test.*"],
+	entry: ["skills/**/scripts/*.mjs", "src/**/*.test.*"],
+	ignore: ["skills/lint-rule-review/assets/**"],
 	ignoreExportsUsedInFile: { interface: true, type: true },
-	project: ["src/**/*.ts"],
+	project: ["skills/**/scripts/*.mjs", "src/**/*.ts"],
 	treatConfigHintsAsErrors: true,
 } satisfies KnipConfig;

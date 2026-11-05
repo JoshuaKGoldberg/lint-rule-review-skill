@@ -4,10 +4,10 @@ export default defineConfig({
 	test: {
 		clearMocks: true,
 		coverage: {
-			include: ["src"],
+			include: ["skills/lint-rule-review/scripts"],
 			reporter: ["html", "lcov"],
 		},
-		exclude: ["dist", "node_modules"],
+		exclude: ["dist", "node_modules", "skills"],
 		setupFiles: ["console-fail-test/setup"],
 	},
 });
