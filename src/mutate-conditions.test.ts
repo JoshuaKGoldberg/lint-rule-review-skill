@@ -2,7 +2,7 @@ import { spawnSync } from "node:child_process";
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import ts from "typescript";
+import * as ts from "typescript";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
 import {
@@ -10,24 +10,18 @@ import {
 	findMutants,
 	parseArgs,
 	parseLines,
-} from "../skills/lint-rule-review/scripts/mutate-conditions.mjs";
+} from "../skills/lint-rule-review/scripts/mutate-conditions.ts";
 
 const script = path.resolve(
-	"skills/lint-rule-review/scripts/mutate-conditions.mjs",
+	"skills/lint-rule-review/scripts/mutate-conditions.ts",
 );
-
-interface Mutant {
-	kind: string;
-	likelyTypeOnly: boolean;
-	to: string;
-}
 
 function kinds(code: string, lines?: Set<number>) {
 	return mutantsOf(code, lines).map((mutant) => `${mutant.kind}: ${mutant.to}`);
 }
 
 function mutantsOf(code: string, lines?: Set<number>) {
-	return findMutants(ts, "rule.ts", code, lines) as Mutant[];
+	return findMutants(ts, "rule.ts", code, lines);
 }
 
 describe(parseArgs, () => {

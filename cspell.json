@@ -3,10 +3,14 @@
 	"ignorePaths": [
 		".all-contributorsrc",
 		"CHANGELOG.md",
+		"catalog",
 		"coverage",
+		"data",
 		"dist",
+		"eval",
 		"node_modules",
 		"pnpm-lock.yaml",
+		"scripts",
 		"skills/lint-rule-review/references"
 	],
 	"words": ["octoguide"]

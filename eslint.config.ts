@@ -17,8 +17,11 @@ export default defineConfig(
 	globalIgnores(
 		[
 			"**/*.snap",
+			"catalog",
 			"coverage",
+			"data",
 			"dist",
+			"eval",
 			"node_modules",
 			"pnpm-lock.yaml",
 			"skills/lint-rule-review/assets",

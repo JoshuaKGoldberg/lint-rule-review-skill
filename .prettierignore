@@ -1,7 +1,11 @@
 /.all-contributorsrc
 /.husky
+/catalog
 /coverage
+/data
 /dist
+/eval
 /pnpm-lock.yaml
+/scripts
 /skills/lint-rule-review/assets
 /skills/lint-rule-review/references

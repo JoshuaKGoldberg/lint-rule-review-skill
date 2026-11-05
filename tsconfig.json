@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"allowJs": true,
+		"erasableSyntaxOnly": true,
 		"declaration": true,
 		"esModuleInterop": true,
 		"module": "nodenext",
@@ -12,5 +12,5 @@
 		"strict": true,
 		"target": "ES2023"
 	},
-	"include": ["src"]
+	"include": ["skills/lint-rule-review/scripts", "src"]
 }

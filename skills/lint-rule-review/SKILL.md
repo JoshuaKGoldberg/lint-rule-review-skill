@@ -114,7 +114,7 @@ Each mutant is one test run, so run it in the background.
 It edits the rule in place, so anything else you run in the meantime has to use a copy of the rule saved under a temporary name:
 
 ```bash
-node <skill-dir>/scripts/mutate-conditions.mjs --file <rule> --test "<test command>" --base <base ref>
+node <skill-dir>/scripts/mutate-conditions.ts --file <rule> --test "<test command>" --base <base ref>
 ```
 
 `--base` limits mutants to lines the PR changed, and `--diff <file>` does the same from a diff.
