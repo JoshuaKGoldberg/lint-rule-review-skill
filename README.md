@@ -29,6 +29,15 @@ Add it to Claude Code:
 
 Then ask Claude to review a rule or a PR that changes one.
 
+## Research
+
+The patterns in this skill were distilled from real lint rule reviews, then scored against them:
+
+- [`catalog/`](./catalog/README.md): the full pattern catalog, with links to the comments behind each pattern
+- [`scripts/`](./scripts): how the comments were collected, clustered, and scored
+
+The raw comments in `data/` and the evaluation runs in `eval/` include other contributors' words, so they're kept out of Git.
+
 ## Development
 
 See [`.github/CONTRIBUTING.md`](./.github/CONTRIBUTING.md), then [`.github/DEVELOPMENT.md`](./.github/DEVELOPMENT.md).
