@@ -30,16 +30,17 @@
 		"@eslint/js": "10.0.1",
 		"@eslint/markdown": "8.0.3",
 		"@types/node": "26.6.2",
-		"@vitest/coverage-v8": "5.0.1",
+		"@vitest/coverage-v8": "5.1.0",
 		"@vitest/eslint-plugin": "1.6.27",
 		"console-fail-test": "0.10.0",
+		"create-typescript-app": "2.75.0",
 		"cspell": "10.4.0",
 		"eslint": "10.14.0",
 		"eslint-plugin-jsdoc": "65.4.0",
 		"eslint-plugin-jsonc": "3.4.1",
 		"eslint-plugin-markdown-links": "0.9.1",
 		"eslint-plugin-n": "18.5.0",
-		"eslint-plugin-package-json": "1.13.0",
+		"eslint-plugin-package-json": "1.14.0",
 		"eslint-plugin-perfectionist": "5.13.0",
 		"eslint-plugin-regexp": "3.3.1",
 		"eslint-plugin-yml": "3.9.0",
@@ -54,7 +55,7 @@
 		"prettier-plugin-sh": "0.20.0",
 		"typescript": "5.9.3",
 		"typescript-eslint": "8.71.0",
-		"vitest": "5.0.1"
+		"vitest": "5.1.0"
 	},
 	"packageManager": "pnpm@11.22.0",
 	"engines": {

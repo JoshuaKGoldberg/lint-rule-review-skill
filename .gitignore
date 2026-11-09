@@ -1,6 +1,5 @@
 /coverage
-/node_modules
-
-# Research data with other contributors' comments: keep local, and don't publish
 /data
+/dist
 /eval
+/node_modules

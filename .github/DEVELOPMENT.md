@@ -66,7 +66,7 @@ To launch it, open a test file, then run _Debug Current Test File_ from the VS C
 
 You should be able to see suggestions from [TypeScript](https://typescriptlang.org) in your editor for all open files.
 
-However, it can be useful to run the TypeScript command-line (`tsc`) to type check all source files:
+However, it can be useful to run the TypeScript command-line (`tsc`) to type check all files in `src/`:
 
 ```shell
 pnpm tsc

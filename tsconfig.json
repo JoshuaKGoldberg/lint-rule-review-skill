@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
-		"erasableSyntaxOnly": true,
 		"declaration": true,
+		"erasableSyntaxOnly": true,
 		"esModuleInterop": true,
 		"module": "nodenext",
 		"moduleResolution": "nodenext",
