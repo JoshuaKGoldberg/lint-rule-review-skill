@@ -1,11 +1,11 @@
 ---
-name: lint-rule-review
+name: lint-rule-review-skill
 description: Review a custom lint rule the way an experienced ESLint, typescript-eslint, and Flint maintainer would, proving bugs by mutating the rule and running adversarial test cases. Use this whenever the user asks to review, audit, critique, or sanity-check a lint rule, a rule's fixer, its tests, or its docs, or a PR or branch that adds or changes one, even if they only say "take a look at this rule" or give a PR number in a linter or plugin repo. Don't use it for configuring lint rules in a project or fixing lint errors in application code.
 ---
 
-# Lint rule review
+# ESLint Rule Review Skill
 
-Review a lint rule the way a maintainer with thousands of past rule reviews would.
+Review a lint rule the way a maintainer with thousands of past review comments would.
 That maintainer's defining habit is empirical: they don't just read a rule, they try to break it.
 They delete a condition and see whether a test fails, and they invent the syntax nobody thought of.
 Follow that habit here.
@@ -37,7 +37,7 @@ Also read [references/extra-checks.md](references/extra-checks.md), which is sho
 
 ## 2. Check the rule's design
 
-Pick from the "Rule design and scope" list in the index by the kind of change:
+Pick from the `design.md` list in the index by the kind of change:
 
 - **New rule:** whether it belongs, its scope, overlap with other rules, type information, options, and preset placement.
 - **Change to an established rule:** semver impact, sibling rules that need the same change, and whether the change serves the issue.
@@ -102,7 +102,7 @@ Don't ask whether it's correct, ask whether it should be there as written:
 Give these as ` ```suggestion ` blocks.
 They're quick for the author to accept.
 
-**Notice what's good.** Note anything that helped you review or handles something tricky, and mention it specifically in the review body.
+**Notice what's good.** Note anything that helped you review or handles something tricky, and mention it specifically, in the review body or as a `[Praise]` comment.
 
 ## 4. Try to break it
 
@@ -110,6 +110,7 @@ This step produces the highest-value findings, so don't skip it.
 Start by getting the rule's existing tests to pass, so you have a working command that runs just this rule's tests.
 
 **Mutate the conditions.** Run the bundled script from the repo root.
+It needs Node 22.18 or newer, which may differ from the version the repo pins.
 Each mutant is one test run, so run it in the background.
 It edits the rule in place, so anything else you run in the meantime has to use a copy of the rule saved under a temporary name:
 
@@ -119,8 +120,12 @@ node <skill-dir>/scripts/mutate-conditions.ts --file <rule> --test "<test comman
 
 `--base` limits mutants to lines the PR changed, and `--diff <file>` does the same from a diff.
 Omit both to mutate a whole new rule.
+Mutants run in source order up to `--max`, 60 by default, so raise it if the summary shows any not tested.
 If the tests run from a package folder, run the script from there. `--out <file>` saves the full results, and a short list of survivors always prints last.
-The script restores the file when it finishes.
+It first checks that the tests fail when the rule throws, and stops if they don't, because then they aren't exercising the rule.
+The script restores the file when it finishes or is stopped.
+If it's killed outright, the next run refuses to start and prints where the original is saved, so compare the two before changing the rule, because you may have edited it since.
+If the test command builds the rule, rebuild afterward, because the build output still has the last mutant.
 It parses with the repo's `typescript`, and on TypeScript 7 or later it prints how to pass an older copy with `--typescript`.
 
 Mutants the tests don't notice are survivors: each one means a test is missing or the code is dead, and you should work out which.
@@ -135,14 +140,15 @@ Also try by hand anything it can't reach that the PR depends on, such as swappin
 
 **Compare head and base.** For a change to an existing rule, this is the most important check.
 A regression in code that used to work matters far more than a gap that was already there, and you can't tell them apart without running both versions.
-Save the base version beside the rule, for example with `git show <base>:<rule> > <rule-dir>/<name>.base-tmp.ts`, or by reverse-applying the diff.
+Save the base version beside the rule, for example with `git show <base>:./<rule> > <rule-dir>/<name>.base-tmp.ts`, or by reverse-applying the diff.
 Then copy [assets/compare-rule.test.ts](assets/compare-rule.test.ts) beside the rule's tests and adjust its marked lines.
 It sorts each case by comparing report counts, and it also records messages, ranges, fix output, suggestions, crashes, and compile errors in each fixture.
 Read `CHANGED OUTPUT` results yourself, because a changed message or fix may be the bug, and ignore any case with `fixtureErrors` until its fixture compiles.
 For a PR that adds a fixer, the fix and suggestion output is the main thing to read, so set `expectedOutput` on those cases.
 If the PR adds an option, set `baseOptions` so that the base version's schema accepts the case.
+Without it, the case is judged on head alone.
 
-For a new rule, import it as both `head` and `base`, so that the harness just reports `ok` or `WRONG`.
+For a new rule, import it as both `head` and `base`, so that the harness reports `ok` or `WRONG` instead of comparing versions.
 If the harness doesn't fit the plugin, use a temporary test file in the repo's own test harness instead.
 
 **Write adversarial cases.** Pick the categories from [references/test-cases.md](references/test-cases.md) that fit the syntax and types this rule touches, and write literal cases.
@@ -169,7 +175,7 @@ Literal matters: this maintainer asks for hand-written cases and pushes back on 
 Before writing anything, go through each finding:
 
 - **Bugs:** include the case and what actually happened.
-  If you couldn't reproduce it, either reproduce it or downgrade it to a `[Question]`.
+  If you couldn't reproduce it, cut it, or downgrade it to a `[Question]` if you still have a specific reason to suspect it.
 - **Order:** regressions come first, then bugs in new code, then existing bugs the PR touches.
 - **One root cause:** if a redesign would fix several bugs, make that one comment and list the cases in it.
   Keep a separate comment only where a bug needs its own fix either way, such as a regression.
@@ -183,12 +189,12 @@ Before writing anything, go through each finding:
 
 Noise costs more than a miss: an author who skims past three weak comments will skim past the real one too.
 Blocking comments should be only what must change before merge.
-Keep at most about eight non-blocking comments, choosing the ones that most improve the code, each with a ready-to-apply suggestion.
+Keep at most about eight non-blocking comments, choosing the ones that most improve the code, with a ready-to-apply suggestion wherever the comment requests a change.
 Cut these first:
 
 - Matters of taste with no real gain in clarity, such as rewording a message or collapsing a conditional that reads fine
 - Anything the description says is deliberate, such as scaffolding for planned work
-- Bugs you tried and couldn't find a real case for
+- Bugs you tried and couldn't find a real case for, with no specific reason left to suspect them
 - Whitespace and quote style
 - Requests for process that adds nothing, such as a tracking issue for every small `TODO`
 
@@ -200,7 +206,7 @@ Many reviews from this maintainer on solid PRs are a warm approval with one or t
 
 ## 6. Write the review
 
-Read [references/review-voice.md](references/review-voice.md), then write `lint-rule-review-<pr-or-rule>.md` in the current directory, without committing it.
+Read [references/review-voice.md](references/review-voice.md), then write `lint-rule-review-skill-<pr-or-rule>.md` in the current directory, without committing it.
 Keep the review body to a few sentences, going longer only to answer the author's questions or explain a design call.
 Use this structure:
 

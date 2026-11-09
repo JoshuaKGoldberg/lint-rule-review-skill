@@ -1,14 +1,14 @@
 {
-	"name": "lint-rule-review",
-	"description": "Reviews custom lint rules by trying to break them.",
+	"name": "lint-rule-review-skill",
+	"description": "Thoroughly reviews custom ESLint rules. 🕵️",
 	"owner": {
 		"name": "Josh Goldberg"
 	},
 	"plugins": [
 		{
-			"name": "lint-rule-review",
+			"name": "lint-rule-review-skill",
 			"source": "./",
-			"description": "Reviews custom lint rules by trying to break them."
+			"description": "Thoroughly reviews custom ESLint rules. 🕵️"
 		}
 	]
 }

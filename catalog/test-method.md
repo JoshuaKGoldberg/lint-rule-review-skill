@@ -10,7 +10,7 @@
 
 **Verify:** Mutate one condition at a time (`if (x)` to its body only, `.some` to `.every`, `filter(fn)` to `filter(() => true)`, `return false` to `return true`), rerun the rule's tests, and require at least one failure. Turn each surviving mutant into an adversarial test case or delete the code.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["No tests fail if this is changed to `.every`. I think that means there's some logic being missed?"](https://github.com/typescript-eslint/typescript-eslint/pull/10067#discussion_r1796062560)
 - ["I tried removing this added check locally and no unit tests failed. Either the check is unnecessary or there's a bag in unit test coverage."](https://github.com/typescript-eslint/typescript-eslint/pull/7895#discussion_r1398409790)
@@ -27,7 +27,7 @@
 
 **Verify:** `pnpm run test run --coverage` and open `coverage/index.html`, or read the Codecov report on the PR. Require no red or yellow lines in the rule file.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["this is code that can be hit, and a test should be added"](https://github.com/typescript-eslint/typescript-eslint/pull/6881#discussion_r1163536236)
 - ["These lines are unhittable and can be removed"](https://github.com/typescript-eslint/typescript-eslint/pull/6193#discussion_r1046362257)
@@ -44,7 +44,7 @@
 
 **Verify:** Split a case until each snippet has one thing under test. A test with several unrelated `errors` entries should become one test per error.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["One thing under test per case please"](https://github.com/typescript-eslint/typescript-eslint/pull/10310#discussion_r1835765945)
 - ["such as having one behavior under test per test case"](https://github.com/typescript-eslint/typescript-eslint/pull/6259#pullrequestreview-1264719655)
@@ -61,7 +61,7 @@
 
 **Verify:** For each changed code path, list one `valid` and one `invalid` entry that goes through it. For a false-positive fix, also add `invalid` cases showing the rule still reports nearby code.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Normally we'll want both `invalid` and `valid` cases added. This just adds `valid`."](https://github.com/typescript-eslint/typescript-eslint/pull/7466#discussion_r1295027810)
 - ["These new test cases do a great job of testing _invalid_ code (where the rule should report) for namespace imports. But there isn't anything checking _valid_ code"](https://github.com/eslint/eslint/pull/18849#discussion_r1742395905)
@@ -78,7 +78,7 @@
 
 **Verify:** Review comments added inside `valid` and `invalid` arrays in the test diff.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["We don't generally include comments / test names like this. The tests should be straightforward enough that you can infer the names from reading them."](https://github.com/typescript-eslint/typescript-eslint/pull/11720#discussion_r2487418375)
 - ["we generally don't put many comments in tests that can be inferred from the tests themselves. They have a bad habit of getting out of date over time."](https://github.com/typescript-eslint/typescript-eslint/pull/8173#discussion_r1445230274)
@@ -95,7 +95,7 @@
 
 **Verify:** When an adversarial case passes on the first try, keep it as a test instead of discarding it.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["They all happen to pass right now, but just to be safe..."](https://github.com/eslint/eslint/pull/19551#discussion_r2014007097)
 - ["They all worked when I tried them out, so this is just for future-proofing."](https://github.com/typescript-eslint/typescript-eslint/pull/10907#discussion_r1987131861)
@@ -112,7 +112,7 @@
 
 **Verify:** Include `line`, `column`, `endLine`, and `endColumn` in `errors`, or inspect snapshot underlines character by character. `new Promise(async (resolve, reject) => {` should underline only `async`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Could you also add the `endColumn` here too? That way we know it's on the `a`, not `a, b` or some other odd range."](https://github.com/typescript-eslint/typescript-eslint/pull/6281#discussion_r1057819367)
 - ["It looks odd to also squiggly the `|`/`&`. Let's just squiggly the node itself. It's ok for fixers to touch code outside the report range."](https://github.com/typescript-eslint/typescript-eslint/pull/5728#discussion_r1146372957)
@@ -127,7 +127,7 @@
 
 **Why:** Filling in tests gives a feel for what the code needs to do, and then it's clearer what can be refactored. A rule without tests can't be reviewed in depth.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["I'd suggest you fill in all those tests so we can get a feel for what the code needs to do."](https://github.com/typescript-eslint/typescript-eslint/pull/4965#pullrequestreview-984227280)
 - ["Which I'm guessing _might_ necessitate changes to the rule's logic."](https://github.com/typescript-eslint/typescript-eslint/pull/7466#pullrequestreview-1579282383)
@@ -144,7 +144,7 @@
 
 **Verify:** Search the test diff for `.map(`, `.flatMap(`, `.reduce(`, and local `create*Case` helpers inside `valid` and `invalid`. typescript-eslint#11323 adds an internal `no-dynamic-tests` rule for this.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["We've been moving away from auto-generated tests. They tend to generate a huge spread of unit tests that each test ever so slightly different variations of the same thing."](https://github.com/typescript-eslint/typescript-eslint/pull/10152#discussion_r1808993311)
 - ["They have a habit of being imprecise and hard to statically analyze."](https://github.com/typescript-eslint/typescript-eslint/pull/8011#discussion_r1416214594)
@@ -161,7 +161,7 @@
 
 **Verify:** Turn the rule on in the repo's lint config, run lint, and triage every report. Add a test for each false positive.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["The only real blocker is that we'll need this running on the repo itself."](https://github.com/typescript-eslint/typescript-eslint/pull/11974#pullrequestreview-3687521472)
 - ["I ran `yarn lint` in the root and looked at the reported violations. It was very informative, would recommend!"](https://github.com/typescript-eslint/typescript-eslint/pull/8443#discussion_r1667410206)
@@ -178,7 +178,7 @@
 
 **Verify:** Paste each fixture into the TypeScript playground or run type checking on it. Replace bare names like `y` with `declare const y: string;`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["`y` is an error type (so, kind of `any`) in these tests. Even if that happens to not violate the rule now it's still not a great practice."](https://github.com/typescript-eslint/typescript-eslint/pull/8262#discussion_r1464947153)
 - ["This is a little closer to the intent:"](https://github.com/typescript-eslint/typescript-eslint/pull/7806#discussion_r1367934128)
@@ -195,7 +195,7 @@
 
 **Verify:** Check that the PR touches the rule's test file, then map each changed hunk in the rule to a test.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["We can't take any bugfixes to lint rules that don't have corresponding unit tests."](https://github.com/typescript-eslint/typescript-eslint/pull/9513#discussion_r1685528976)
 - ["There are about a half dozen changes to the rule itself. Each should have a corresponding unit test enforcing it works."](https://github.com/typescript-eslint/typescript-eslint/pull/8304#discussion_r1469838503)
@@ -209,7 +209,7 @@
 
 **Why:** Unnecessary content makes long test lists hard to read through.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Would you be up for removing the unnecessary-for-tests fields?"](https://github.com/michaelfaith/eslint-plugin-package-json/pull/11#discussion_r1323869435)
 - ["There's no need to store these values in variables - other than to test that storing in a variable isn't broken."](https://github.com/typescript-eslint/typescript-eslint/pull/11826#discussion_r2617199807)
@@ -226,7 +226,7 @@
 
 **Verify:** For `.filter(...)[0]`: `[1]`, `.at(1)`, `.filter(...)` with no index, something between `.filter(...)` and `[0]`, `.find(...)`. For unary minus: `(a: string) => +a;`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Putting something between the `.filter(...)` and the `[0]`"](https://github.com/typescript-eslint/typescript-eslint/pull/8216#discussion_r1446593504)
 - ["A valid case that would be invalid with a different operator (e.g. `(a: string) => +a;`)"](https://github.com/typescript-eslint/typescript-eslint/pull/7390#discussion_r1285115116)
@@ -243,7 +243,7 @@
 
 **Verify:** Revert the rule change and rerun tests. Added tests that still pass, and aren't deliberate regression guards, are candidates for removal.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["In other words: each test should be targeted to new logic, not existing logic."](https://github.com/typescript-eslint/typescript-eslint/pull/8502#discussion_r1575367329)
 - ["There's no need for this test. It isn't testing anything new - this file already tests that providing `types` options are respected."](https://github.com/typescript-eslint/typescript-eslint/pull/6079#discussion_r1038244181)
@@ -260,7 +260,7 @@
 
 **Verify:** Search test diffs for `\n` inside quoted `code` strings, string concatenation, and `noFormat` on code that is already formatted.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["We have internal lint rules that auto-format test case code, so it's good to use the same kind of single template literals that existing tests generally uses."](https://github.com/typescript-eslint/typescript-eslint/pull/7691#discussion_r1353249204)
 - ["Is there a reason many of these tests use `'` strings with `\n`s, instead of <code>`</code> multiline template literal strings?"](https://github.com/typescript-eslint/typescript-eslint/pull/6211#discussion_r1083382518)
@@ -276,7 +276,7 @@
 
 **Verify:** `errors: [{ data: 'any', messageId: 'anyAssignment' }]`. Break the data-selecting ternary and confirm a test fails.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Without including `data` in the errors, the tests aren't really testing everything we need them to."](https://github.com/typescript-eslint/typescript-eslint/pull/8304#discussion_r1623640471)
 - ["If there's a bug in the new `isErrorType ? ... : ...` logic, the tests should be able to catch it."](https://github.com/typescript-eslint/typescript-eslint/pull/9304#discussion_r1632094188)
@@ -292,7 +292,7 @@
 
 **Verify:** Copy the issue's reproduction into a test case verbatim, then trim it. Check variants mentioned in passing, such as `(string | number)`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Regardless of what the end behavior ends up being, since they're a case explicitly discussed, I think there should be tests for them."](https://github.com/typescript-eslint/typescript-eslint/pull/10106#discussion_r1796175393)
 - ["The reported issue mentions `(string | number)`. Could you add in a cursory bit of testing for that please?"](https://github.com/typescript-eslint/typescript-eslint/pull/7525#discussion_r1313844588)
@@ -308,7 +308,7 @@
 
 **Verify:** Compare removed `code:` strings in the test diff with the added ones. Each removed snippet should reappear on the other side or have an explanation.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["These are good cases to test! Even if they switch from `invalid` to `valid`. Let's keep them in the file in some way."](https://github.com/typescript-eslint/typescript-eslint/pull/11971#discussion_r2890193386)
 - ["Could you add these test cases back in, please? This shouldn't be a breaking change PR. They should still be valid code."](https://github.com/typescript-eslint/typescript-eslint/pull/5097#discussion_r928281647)

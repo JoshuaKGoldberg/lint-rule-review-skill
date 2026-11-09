@@ -104,7 +104,7 @@ Verify: Run the existing tests after rewriting; the rewrite must be behavior-pre
 
 ## Use existing APIs instead of hand-written checks and caches
 
-(21; typescript-eslint)
+(21)
 
 Flag bitwise `type.flags & ...`, `as ts.ObjectType` casts, manual union recursion, and paired per-kind checks. Use `tsutils.isTypeFlagSet`, `isObjectFlagSet`, `isObjectType`, `typeParts`, `isLiteralType`, and `isIntrinsicErrorType`, and pass OR-ed flags in one call rather than checking each flag separately.
 
@@ -132,7 +132,7 @@ Verify: Enable prefer-optional-chain, logical-assignment-operators, and unicorn'
 
 ## Encode guaranteed node shapes in types, not narrowing guards
 
-(18; typescript-eslint)
+(18)
 
 When a rule uses `nullThrows`, `/* istanbul ignore */`, `'x' in node`, or an unreachable `return` because a type is too wide, narrow the type instead: restrict the parameter, use `MakeRequired<T, 'field'>`, add `{ parent: ... }`, or use an `as` assertion as a fallback.
 
@@ -160,7 +160,7 @@ Verify: Compare `git diff --stat` before and after, with tests passing.
 
 ## Let selectors and visitors do the structural work
 
-(13; typescript-eslint)
+(13)
 
 Replace in-handler operator or parent checks with an esquery selector, replace flags set during traversal and read at `Program:exit` with a direct check on the parent node, drop `:exit` when ordering no longer matters, and prefer a node-type visitor to manual recursion from a catch-all `SourceFile`. Watch descendant versus child combinators.
 

@@ -24,7 +24,7 @@
   "files": [
     "README.md"
   ],
-  "projectName": "lint-rule-review",
+  "projectName": "lint-rule-review-skill",
   "projectOwner": "JoshuaKGoldberg",
   "repoType": "github",
   "commitConvention": "angular"

@@ -10,7 +10,7 @@
 
 **Verify:** Grep the plugin for the helper body's distinctive calls. After reuse, run tests for every rule touched.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["This is directly copied from `return-await`, right? Since it's a nontrivial function I think it'd be best to put in a util file and re-use between the two rules."](https://github.com/typescript-eslint/typescript-eslint/pull/10719#discussion_r1958256601)
 - ["I like the logic and am mostly requesting it be moved into `type-utils` so that all rules can benefit from it."](https://github.com/typescript-eslint/typescript-eslint/pull/11954#pullrequestreview-3650793006)
@@ -27,7 +27,7 @@
 
 **Verify:** For each comment, delete it and ask whether nearby names and types still convey the same information.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Nit: I don't think these comments add anything. They're all pretty apparent from the name & context."](https://github.com/typescript-eslint/typescript-eslint/pull/8502#discussion_r1580078782)
 - ["a lot of these comments are pretty self-apparent from the code IMO."](https://github.com/typescript-eslint/typescript-eslint/pull/11720#discussion_r2538246858)
@@ -44,7 +44,7 @@
 
 **Verify:** List every caller of the helper and confirm what each has already narrowed, then remove the guard and run the tests.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["we humans know `node` always has a `parent`, so the type system is wrong to suggest it could be `undefined`:"](https://github.com/typescript-eslint/typescript-eslint/pull/11032#discussion_r2035348039)
 - ["If `node.parent.type === AST_NODE_TYPES.CallExpression` then we know `node.parent` exists:"](https://github.com/typescript-eslint/typescript-eslint/pull/6237#discussion_r1051447888)
@@ -61,7 +61,7 @@
 
 **Verify:** Delete the line, or change the `if` to `if (true)`, then run the rule's tests. If they stay green, add a failing test case or keep the deletion.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["No tests fail from removing the `?`. Either a unit test is missing or this is a teeny bit of dead code:"](https://github.com/eslint/eslint/pull/19565#discussion_r2010465116)
 - ["For this and my other "dead code" notes: if I'm wrong, we should have unit tests proving it."](https://github.com/eslint/eslint/pull/19564#discussion_r2010426970)
@@ -78,7 +78,7 @@
 
 **Verify:** Run the existing tests after rewriting; the rewrite must be behavior-preserving.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["The current code was a little confusing to me at first. But it actually reduces down nicely:"](https://github.com/typescript-eslint/typescript-eslint/pull/11617#discussion_r2369250736)
 - ["any reason for the double-nesting?"](https://github.com/typescript-eslint/typescript-eslint/pull/8903#discussion_r1623497022)
@@ -95,7 +95,7 @@
 
 **Verify:** Search the rule for `.flags &`, `.objectFlags`, and `.isUnion()` followed by recursion, then look up the equivalent ts-api-utils export.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Fun fact, `ts-api-utils` has a `typeParts` function for just this!"](https://github.com/typescript-eslint/typescript-eslint/pull/8509#discussion_r1528472678)
 - ["I've seen this "make a Map for a single cache" pattern a bunch, I made a [`cached-factory`](https://www.npmjs.com/package/cached-factory) package for it."](https://github.com/michaelfaith/eslint-plugin-package-json/pull/721#discussion_r1918721192)
@@ -112,7 +112,7 @@
 
 **Verify:** Enable prefer-optional-chain, logical-assignment-operators, and unicorn's flat-map and at rules.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Nit: Just a teeny bit less code..."](https://github.com/typescript-eslint/typescript-eslint/pull/3959#discussion_r728543556)
 - ["I'm surprised this isn't caught by https://typescript-eslint.io/rules/prefer-nullish-coalescing ..."](https://github.com/typescript-eslint/typescript-eslint/pull/10218#discussion_r1827992697)
@@ -129,7 +129,7 @@
 
 **Verify:** Remove the check, tighten the type, and run `tsc`. Coverage ignores should disappear with it.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Unreachable code is often a sign that the type system isn't matching reality, and pressuring you to write code you don't need to."](https://github.com/typescript-eslint/typescript-eslint/pull/5471#discussion_r947131690)
 - ["If the reason it's here is to narrow `argNode`'s type down to `TSESTree.Expression` then maybe either the types are suggesting a legit case to handle, or are wrong?"](https://github.com/typescript-eslint/typescript-eslint/pull/9707#discussion_r2175872432)
@@ -146,7 +146,7 @@
 
 **Verify:** Compare `git diff --stat` before and after, with tests passing.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["We should be able to trim the changes down a bit to be easier to read & review."](https://github.com/typescript-eslint/typescript-eslint/pull/5965#pullrequestreview-1180987107)
 - ["Adding 175 lines of new code to an already-large rule to support fixing outside the rule's responsibilities is... a lot."](https://github.com/typescript-eslint/typescript-eslint/pull/5050#pullrequestreview-1048661675)
@@ -163,7 +163,7 @@
 
 **Verify:** Test nested-scope cases, such as a `function` inside a constructor, when changing a descendant selector to a child one.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["This _"wait until the end"_ strategy adds a bit more complexity than we need."](https://github.com/michaelfaith/eslint-plugin-package-json/pull/851#discussion_r1938501913)
 - ["It succinctly filters away undesirable node shapes that this rule wouldn't want to check for"](https://github.com/typescript-eslint/typescript-eslint/pull/5852#discussion_r1020981677)
@@ -180,7 +180,7 @@
 
 **Verify:** Run @typescript-eslint/prefer-optional-chain and no-unnecessary-condition on the rule.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Nit, I'm surprised this wasn't flagged by linting:"](https://github.com/JoshuaKGoldberg/eslint-plugin-erasable-syntax-only/pull/39#discussion_r2005453147)
 - ["This would be a bit more succinct, I think."](https://github.com/eslint/eslint/pull/17985#discussion_r1454655100)
@@ -197,7 +197,7 @@
 
 **Verify:** Replace the type with the plain form and run tsc: no new errors means the specificity was unused.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["I don't think we need such a straightforward function. Just a `typeof` in-place is code is fine."](https://github.com/michaelfaith/eslint-plugin-package-json/pull/741#discussion_r1921551139)
 - ["We can always expand to more cases later. But in the meantime it's extra cognitive complexity for a feature we aren't 100% likely to need."](https://github.com/typescript-eslint/typescript-eslint/pull/6881#discussion_r1262787708)
@@ -214,7 +214,7 @@
 
 **Verify:** Delete the annotation and run tsc --noEmit: no new errors means it was unnecessary.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["we haven't enforced explicit return types for non-exported functions in a while. Non-trivial ones like this union with a deep object take up a lot of syntax space"](https://github.com/typescript-eslint/typescript-eslint/pull/11974#discussion_r2712810225)
 - ["No need to explicitly declare those type arguments"](https://github.com/typescript-eslint/typescript-eslint/pull/8903#discussion_r1659831122)
@@ -229,7 +229,7 @@
 
 **Why:** The reviewer should not be able to tell code was AI-authored, and removing these is manual work that lands on the reviewer.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["I can tell this is probably authored with AI. I should not be able to. Please apply a more discerning eye to the code."](https://github.com/typescript-eslint/typescript-eslint/pull/12218#discussion_r3311360419)
 - ["I'd recommend doing a pass to remove unnecessary type annotations, variable closures, etc."](https://github.com/flint-fyi/flint/pull/2406#discussion_r2915201936)
@@ -246,7 +246,7 @@
 
 **Verify:** Inline the variable and run tsc: if narrowing breaks, keep the variable.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["this _"store a single property in a variable"_ pattern isn't really necessary; I don't think it's worth the extra line."](https://github.com/typescript-eslint/typescript-eslint/pull/11974#discussion_r2712803097)
 - ["Why bother making the variable if it's only used once, on a next line?"](https://github.com/typescript-eslint/typescript-eslint/pull/5965#discussion_r1022901113)
@@ -261,7 +261,7 @@
 
 **Why:** Rules that are long for a first version are hard to read through, and `const` results of a named function make it clearer what is going on.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["This file is already pretty big & chonky to understand."](https://github.com/flint-fyi/flint/pull/2316#discussion_r2915134434)
 - ["But they are an indication IMO that a well-named function could clear up the code instead, too."](https://github.com/typescript-eslint/typescript-eslint/pull/8216#discussion_r1446586005)
@@ -278,7 +278,7 @@
 
 **Verify:** Narrow the parameter type and confirm assertions inside the function can be deleted.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["I'm not generally a fan of adding boolean parameters to modify core behavior of a function."](https://github.com/typescript-eslint/typescript-eslint/pull/6853#discussion_r1160312087)
 - ["we know `createPropertyKeyFixer` is only ever called with a `TSESTree.TSAnyKeyword`."](https://github.com/typescript-eslint/typescript-eslint/pull/11032#discussion_r2031606252)
@@ -295,7 +295,7 @@
 
 **Verify:** Remove the augmentation and confirm the rule compiles against public TypeScript types.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["This LGTM, but given how dangerous it is we should definitely also get review from @bradzacher and @kirkwaiblinger if they have time."](https://github.com/typescript-eslint/typescript-eslint/pull/11789#pullrequestreview-4125418837)
 - ["We try very hard not to use TypeScript-internal APIs in our rules."](https://github.com/typescript-eslint/typescript-eslint/pull/7390#discussion_r1285114885)
@@ -312,7 +312,7 @@
 
 **Verify:** Remove the redundant check and run the tests; reorder branches if one call can serve both paths.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["This should have already been found by `getSwitchMetadata`."](https://github.com/typescript-eslint/typescript-eslint/pull/10218#discussion_r1827999729)
 - ["`getComputedPropertyDeprecation` is already being called in `getDeprecationReason`, just after the `getCallLikeDeprecation`."](https://github.com/typescript-eslint/typescript-eslint/pull/11006#discussion_r2031140948)
@@ -327,7 +327,7 @@
 
 **Why:** Clever code has a difficulty cost for readers, and these rules are maintained for a long time. Most TypeScript developers won't understand elaborate type shenanigans.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["...but like many clever code things, there was a difficulty cost of reading it at first."](https://github.com/typescript-eslint/typescript-eslint/pull/8389#pullrequestreview-1897298560)
 - ["My only concern is that these types of types shenanigans can be unapproachable or complex to work with."](https://github.com/michaelfaith/eslint-plugin-package-json/pull/1258#pullrequestreview-3224280333)
@@ -344,7 +344,7 @@
 
 **Verify:** Search the diff for `//` lines containing code.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Are these leftover from somewhere?"](https://github.com/typescript-eslint/typescript-eslint/pull/6096#discussion_r1032949538)
 - ["Was this meant to indicate something? Or should it be removed?"](https://github.com/typescript-eslint/typescript-eslint/pull/6211#discussion_r1083382803)
@@ -358,7 +358,7 @@
 
 **Why:** A `let` confuses the reader and tends to duplicate logic, and placeholder values like `-1` are unnecessary if they are always overridden.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["The `let` variable confused me a bit - there are a few points of duplication in the code."](https://github.com/typescript-eslint/typescript-eslint/pull/11767#discussion_r2556426880)
 - ["Setting the values to `-1` is unnecessary because they're always overridden later."](https://github.com/typescript-eslint/typescript-eslint/pull/5965#discussion_r1022892176)
@@ -372,7 +372,7 @@
 
 **Why:** Returning as soon as possible makes it clearer what's going on and avoids more indentation. The reviewer drops this when an author actually has an opinion.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["I used to use the phrase _"invert if, reduce nesting"_ more in PR reviews. Now I'd rather make a lint rule for it"](https://github.com/typescript-eslint/typescript-eslint/pull/8216#discussion_r1471878174)
 - ["In general, I think it's preferable to `return` as soon as possible. A bit clearer what's going on in the code."](https://github.com/michaelfaith/eslint-plugin-package-json/pull/70#discussion_r1460172259)
@@ -388,7 +388,7 @@
 
 **Verify:** Delete one variable, derive it from the other, and confirm tests pass.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["So this is using two variables to store a single piece of info."](https://github.com/typescript-eslint/typescript-eslint/pull/5848#discussion_r1092537930)
 - ["That's a bit of a code smell for duplicate state."](https://github.com/typescript-eslint/typescript-eslint/pull/8282#discussion_r1476290695)
@@ -403,7 +403,7 @@
 
 **Why:** A Set says more clearly what is happening, and keying the Map on the compared value turns an O(N) search into a single O(1) lookup.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["I think it'd be a lot simpler to move those names into a `Set<string | undefined>` and use `.has`"](https://github.com/typescript-eslint/typescript-eslint/pull/6411#discussion_r1174754261)
 - ["Then we can do a single O(1) lookup!"](https://github.com/typescript-eslint/typescript-eslint/pull/5728#discussion_r1146359968)
@@ -418,7 +418,7 @@
 
 **Why:** Duplicate calls add noise even when the performance effect is negligible.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Nit, since we're calling the same function twice ~"](https://github.com/typescript-eslint/typescript-eslint/pull/10979#discussion_r2031125826)
 - ["Instead of duplicating the function call, we can more directly check the `?.value` in the `if`:"](https://github.com/michaelfaith/eslint-plugin-package-json/pull/721#discussion_r1911404668)
@@ -434,7 +434,7 @@
 
 **Verify:** Delete the property and confirm rule behavior and generated docs are unchanged.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["It's fine to leave this out; falsy is its default."](https://github.com/typescript-eslint/typescript-eslint/pull/5848#discussion_r1092543136)
 - ["Nit: this is the default."](https://github.com/typescript-eslint/typescript-eslint/pull/5830#discussion_r996370984)

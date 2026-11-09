@@ -10,7 +10,7 @@
 
 **Verify:** List options in the rule's schema and confirm each has a docs entry and at least one test.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Just requesting changes to get it documented too. Every selector option should be."](https://github.com/typescript-eslint/typescript-eslint/pull/8084#pullrequestreview-1804645598)
 - ["The explanation is no longer accurate now that they're also considered by the rule."](https://github.com/typescript-eslint/typescript-eslint/pull/7686#discussion_r1333033708)
@@ -27,7 +27,7 @@
 
 **Verify:** For each key in the rule's schema, confirm the docs have a matching heading followed by a tabbed or fenced example using that option.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Could you add some examples please? We generally try to -at least for newly added rule options- so users can see exactly how the code looks."](https://github.com/typescript-eslint/typescript-eslint/pull/6487#discussion_r1254598357)
 - ["The options mentions in this page don't explain why any of the options exist."](https://github.com/typescript-eslint/typescript-eslint/pull/11075#discussion_r2071978658)
@@ -44,7 +44,7 @@
 
 **Verify:** Delete the rule's name and behavior from each sentence. If nothing remains but 'you can disable this', ask for a named scenario such as an existing codebase style or a legacy runtime.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Can you elaborate on _why_ someone wouldn't want _X_?"](https://github.com/typescript-eslint/typescript-eslint/pull/8509#discussion_r1500647147)
 - ["You might consider using [Flint disable comments](/directives) and/or [configuration file disables](/configuration#files) for those specific situations instead of completely disabling this rule."](https://github.com/flint-fyi/flint/pull/2169#discussion_r2738691903)
@@ -61,7 +61,7 @@
 
 **Verify:** Try to write one counterexample for each absolute statement, such as a getter with a side effect for 'side-effect-free'.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["_"is not allowed"_ is a bit too prescriptive."](https://github.com/typescript-eslint/typescript-eslint/pull/8509#discussion_r1513232386)
 - ["A lot of new-to-TypeScript folks get confused by the misconception that TypeScript "guarantees" anything. It's good to use words that are a little less absolute."](https://github.com/typescript-eslint/typescript-eslint/pull/8011#discussion_r1438370892)
@@ -78,7 +78,7 @@
 
 **Verify:** List every node kind and type the rule matches, then check each appears in the docs and nothing else does.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["It validates more than casing, no? Like, if the file doesn't exist at all, this will catch that, right?"](https://github.com/michaelfaith/eslint-plugin-package-json/pull/11#discussion_r1326239081)
 - ["Nit: not relevant to this rule. We've got a separate one that'll handle that."](https://github.com/flint-fyi/flint/pull/2169#discussion_r2738690346)
@@ -95,7 +95,7 @@
 
 **Verify:** Paste each snippet into the playground with `strict` on. The only diagnostics should come from the rule under discussion.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Here and in the other code snippet, let's go with no `noImplicitAny` violations:"](https://github.com/flint-fyi/flint/pull/348#discussion_r2395820485)
 - ["There are a _lot_ of lines of examples here."](https://github.com/typescript-eslint/typescript-eslint/pull/8011#discussion_r1416204875)
@@ -112,7 +112,7 @@
 
 **Verify:** Check each Further Reading link: no eslint.org, stylelint, or other linter URLs, and the list is sorted by link text.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["JS `delete` behaviors are confusing enough that linking to the main docs would be good IMO."](https://github.com/typescript-eslint/typescript-eslint/pull/5852#discussion_r1265779842)
 - ["No, further reading is for external docs, not linters."](https://github.com/flint-fyi/flint/pull/375#discussion_r2413780070)
@@ -129,7 +129,7 @@
 
 **Verify:** Ask whether someone who has never touched the type-checking APIs could explain each noun in the first paragraph and the message text.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["I don't know what phantom types are, and neither will many readers of this. This should either define it or be omitted."](https://github.com/typescript-eslint/typescript-eslint/pull/8173#discussion_r1477517286)
 - ["A lot of developers don't know what type predicates are. Could you add a line or two explaining them please?"](https://github.com/typescript-eslint/typescript-eslint/pull/6742#discussion_r1155321280)
@@ -146,7 +146,7 @@
 
 **Verify:** Diff the page's heading outline against a sibling rule's page.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Just to align formatting with other rules..."](https://github.com/michaelfaith/eslint-plugin-package-json/pull/1077#discussion_r2135741185)
 - ["Keep a normal rule description as before, and only use this _"did you mean?"_-centered wording in rule reports."](https://github.com/flint-fyi/flint/pull/370#discussion_r2413653614)
@@ -163,7 +163,7 @@
 
 **Verify:** Grep the diff for `TODO`, `eslint-disable`, and `@ts-expect-error`, and confirm each has an issue link.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Could you file an issue to support spread arguments, and link it in the code comment please? It's easy to lose track of these things"](https://github.com/typescript-eslint/typescript-eslint/pull/5731#discussion_r986383214)
 - ["Approximately every other comment has the same format, no need to diverge here. + having the link to the issue helps cross-link."](https://github.com/flint-fyi/flint/pull/2169#discussion_r2743566352)
@@ -180,7 +180,7 @@
 
 **Verify:** Build the docs and check option headings. Search prose for bare keywords the rule is about.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["The last item shows up as _"Array - to specify ..."_ in GitHub's rendered pages. Best to backtick."](https://github.com/michaelfaith/eslint-plugin-package-json/pull/55#discussion_r1362317982)
 - ["The website build is failing because these should be backticked:"](https://github.com/typescript-eslint/typescript-eslint/pull/10218#discussion_r1874501034)
@@ -195,7 +195,7 @@
 
 **Why:** Technical terms carry specific meanings: 'members' typically refers to class or object members, and `Function` is a specific built-in type devs are trained to avoid. Docs should be consistent with how they phrase it.
 
-**From your reviews:**
+**From past reviews:**
 
 - [""Members" typically refers to class/object members. The technical term here is _constituents_, I think."](https://github.com/typescript-eslint/typescript-eslint/pull/5728#discussion_r985670827)
 - ["`Function` is a specific built-in type that TS devs are generally trained to avoid. _"function"_ the term refers to functions."](https://github.com/typescript-eslint/typescript-eslint/pull/8509#discussion_r1528436298)
@@ -209,7 +209,7 @@
 
 **Why:** A lot of seemingly-required reading for a limitation most projects won't hit bogs down the page. Most users don't care how equivalence is determined internally, and a code block above the fold is a tl;dr for many.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["This is a lot of seemingly-required reading for a limitation that most projects won't hit."](https://github.com/typescript-eslint/typescript-eslint/pull/8765#discussion_r1623455384)
 - ["I don't think there's a need to mention granular, specific options in the high-level overview."](https://github.com/typescript-eslint/typescript-eslint/pull/10218#discussion_r1854407520)
@@ -226,7 +226,7 @@
 
 **Verify:** Run the sentences-per-line markdownlint rule, or grep docs for lines containing a period followed by a space and a capital letter.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Smaller sentences are easier for folks to understand."](https://github.com/typescript-eslint/typescript-eslint/pull/12317#discussion_r3487766213)
 - ["We'll lint for this eventually, but I personally like keeping to one sentence per line"](https://github.com/typescript-eslint/typescript-eslint/pull/8216#discussion_r1446557754)
@@ -243,7 +243,7 @@
 
 **Verify:** Read only the first paragraph and answer: what does the rule flag, and what goes wrong if it's ignored?
 
-**From your reviews:**
+**From past reviews:**
 
 - ["This explanation confused me at first because it never explains _why_ one should be preferred."](https://github.com/michaelfaith/eslint-plugin-package-json/pull/11#discussion_r1323860982)
 - ["I think we'll want to explicitly call out what the things are in plain text, before getting to the explanation of why we don't want them -> examples of them."](https://github.com/typescript-eslint/typescript-eslint/pull/10182#discussion_r2072000649)
@@ -260,7 +260,7 @@
 
 **Verify:** Build the docs site locally and read the rendered page for sentences that appear twice.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Our tooling will auto-generate this ✨"](https://github.com/typescript-eslint/typescript-eslint/pull/8173#discussion_r1477510504)
 - ["I don't think this is necessary, given that `defaultCaseCommentPattern` already documents itself and automatically mentions its default value."](https://github.com/typescript-eslint/typescript-eslint/pull/10218#discussion_r1854533641)
@@ -277,7 +277,7 @@
 
 **Verify:** Write a test for each stated edge case. Anything that needed a design discussion in the PR should appear in the docs too.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["It's a surprising limitation if you don't have a good familiarity with the type checking APIs."](https://github.com/typescript-eslint/typescript-eslint/pull/8765#discussion_r1576881541)
 - ["I think that should be explicitly called out as allowed in the docs & also tested for."](https://github.com/michaelfaith/eslint-plugin-package-json/pull/1344#discussion_r2482266734)
@@ -294,7 +294,7 @@
 
 **Verify:** grep for markdown links whose text is only 'docs', 'documentation', 'here', 'this comment', or 'this issue'.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Informative link titles makes it easier to navigate through the page with a screenreader."](https://github.com/typescript-eslint/typescript-eslint/pull/6411#discussion_r1133456466)
 - ["Accessibility fix: folks who navigate through page links should be able to glean context from just the link text alone."](https://github.com/typescript-eslint/typescript-eslint/pull/5050#discussion_r1014897927)
@@ -309,7 +309,7 @@
 
 **Why:** Points in one paragraph hurt readability, and users want a quick comparison. Long inline config is a lot for a single line.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["I'd expect users will want to be able to see a quick comparison chart. How about reformatting as a table?"](https://github.com/typescript-eslint/typescript-eslint/pull/8335#discussion_r1477124910)
 - ["Putting these points all together in a paragraph hurts readability. I'd recommend switching to a list:"](https://github.com/typescript-eslint/typescript-eslint/pull/4436#discussion_r1092479121)
@@ -326,7 +326,7 @@
 
 **Verify:** Compare the option list and examples to the base rule's docs and remove anything already there.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["This technically isn't _added_, it's already there from the base rule."](https://github.com/typescript-eslint/typescript-eslint/pull/10392#discussion_r1866057333)
 - ["Just a few examples showing the basics of the new rule and what it adds."](https://github.com/typescript-eslint/typescript-eslint/pull/8011#discussion_r1416204875)
@@ -341,7 +341,7 @@
 
 **Why:** 'Backwards compatibility' is the catch-all reason LLMs tend to give, and it's debatably incorrect or imprecise. Readers don't need words extolling a feature.
 
-**From your reviews:**
+**From past reviews:**
 
 - [""backwards compatibility" is the catch-all reason LLMs tend to give for these docs."](https://github.com/flint-fyi/flint/pull/2591#discussion_r3150869197)
 - ["I don't think these list items need to be bold/emphasized; I've been switching the AI-authored docs to not be."](https://github.com/flint-fyi/flint/pull/2169#discussion_r2738689224)
@@ -358,7 +358,7 @@
 
 **Verify:** Check the old docs URL still resolves and that the new page contains the old rule's name.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Having the old rule named here will help with folks searching the old name."](https://github.com/typescript-eslint/typescript-eslint/pull/9207#discussion_r1623412308)
 - ["Could you keep a "tombstone" page for the old rule?"](https://github.com/typescript-eslint/typescript-eslint/pull/9207#discussion_r1623412637)
@@ -374,7 +374,7 @@
 
 **Verify:** grep the page for 'simple string' or 'independently of its origin'.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["The simple string format is evil 👿. It allows any coincidentally equal name to match."](https://github.com/typescript-eslint/typescript-eslint/pull/8556#discussion_r1667480597)
 - ["catch-all names tend to be overly permissive."](https://github.com/typescript-eslint/typescript-eslint/pull/8502#discussion_r1541768874)
@@ -389,7 +389,7 @@
 
 **Why:** Rules the team hasn't tried before can change significantly. Users should know an opinion is new so they can try it out and report back.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Maybe we should put some kind of "nursery" notice on this page?"](https://github.com/flint-fyi/flint/pull/1758#discussion_r2696573802)
 - ["it's still somewhat experimental / something-we-haven't-tried-ourselves-before."](https://github.com/typescript-eslint/typescript-eslint/pull/8173#discussion_r1654880002)
@@ -405,7 +405,7 @@
 
 **Verify:** grep -nE '@(param|returns) \{' on the changed files.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["We have TypeScript types, no need to describe them explicitly in comments."](https://github.com/typescript-eslint/typescript-eslint/pull/5965#discussion_r1022868727)
 - ["any reason not to use `/** ... */` here?"](https://github.com/typescript-eslint/typescript-eslint/pull/8173#discussion_r1477525916)

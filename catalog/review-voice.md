@@ -42,5 +42,5 @@ The body is a short summary (median 22 words), and the detail lives in inline co
 | `[Non-Actionable]` | An aside, with no change requested |
 | `[Praise]` | Something done well |
 
-Your history uses these loosely: `[Style]` covers both nits and firm requests, and `[Request]` often marks real bugs.
+Past reviews used these loosely: `[Style]` covers both nits and firm requests, and `[Request]` often marks real bugs.
 The skill should use one meaning per label, and state severity separately.

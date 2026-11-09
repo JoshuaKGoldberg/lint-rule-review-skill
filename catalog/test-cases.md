@@ -10,7 +10,7 @@
 
 **Verify:** Feed a case with two block comments in every gap and assert that every letter survives in the output: `/* a */ /* b */ if /* c */ /* d */ ( /* e */ /* f */ foo /* g */ /* h */) /* i */ /* j */ { /* k */ /* l */ foo /* m */ /* n */ . /* o */ /* p */ bar /* q */ /* r */ () /* s */ /* t */; }`
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Comments tend to trip up string checking, so it'd be good to have this (already working, yay!) test case:"](https://github.com/typescript-eslint/typescript-eslint/pull/8277#discussion_r1474788172)
 - ["They tend to be broken over time by AST oddities like comments and whitespace."](https://github.com/typescript-eslint/typescript-eslint/pull/10963#discussion_r2010144851)
@@ -27,7 +27,7 @@
 
 **Verify:** `function f(): 'a' | 'b' { return 'a' as const; }`, `const e: () => 'a' | 'b' = () => 'a' as const;`, `const t: ['a' | 'b'] = ['a' as const];`, `function f(x: 'a' | 'b' = 'a' as const) {}`, `const c: Container<'a' | 'b'> = new Container('a' as const);`, `{ kind: 'a' as const } satisfies Recipient`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["`getContextualType` behavior on return positions can be really tricky."](https://github.com/typescript-eslint/typescript-eslint/pull/12317#discussion_r3311731396)
 - ["Arrow function inference is a whole thing too:"](https://github.com/typescript-eslint/typescript-eslint/pull/12317#discussion_r3311731741)
@@ -44,7 +44,7 @@
 
 **Verify:** `constructor(public foo: string) { { this.foo = foo; } }`, `(() => () => {})()()`, `a ? (b ? { a: 'Hello' } : {}) : {}`, `a.b.c === a.b.c`, `this.testObj?.prop?.prop`, `outer: { middle: { inner: {} } }`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Checks for specifically conditionals sometimes only work for one level."](https://github.com/typescript-eslint/typescript-eslint/pull/11908#discussion_r2655958614)
 - ["I've seen issues with rules in the past from deeply nested expressions: `a.b.c` and the like."](https://github.com/flint-fyi/flint/pull/2169#discussion_r2738729118)
@@ -61,7 +61,7 @@
 
 **Verify:** `string | string[]`, `number[] & string[]`, `Map<boolean, string> & Set<number>`, `1 & number`, `(A | B) & C`. Include one case where only some constituents match.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Intersections and unions: with `Map`, `Set`, and/or other types"](https://github.com/typescript-eslint/typescript-eslint/pull/9369#discussion_r1657113106)
 - ["Combination `|` union and `&` intersection types"](https://github.com/typescript-eslint/typescript-eslint/pull/10907#discussion_r1987131861)
@@ -78,7 +78,7 @@
 
 **Verify:** One test each for `ReadonlyArray<string>`, `Readonly<Array<string>>`, `[string, number]`, `[]`, `Uint8Array`, `string[][]`, `ReadonlySet<string>`. Decide explicitly on ambiguous ones such as `ArrayLike`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Built-in aliases, like `ReadonlyMap` and `ReadonlySet`"](https://github.com/typescript-eslint/typescript-eslint/pull/8509#discussion_r1500652364)
 - ["Targets that are declared as `Array<something>`, not just `something[]`"](https://github.com/typescript-eslint/typescript-eslint/pull/5852#discussion_r1111175381)
@@ -95,7 +95,7 @@
 
 **Verify:** `Readonly<Error>`, `Partial<Foo>`, `type U<T> = { [K in keyof T]: 0 }`, a template literal type such as ``export type M = `${Accessibility}`;``, `Key extends keyof typeof fruits`, `type Foo = Bar[1 & number];`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["There are going to be quite a few variants of types that could break the rule:"](https://github.com/typescript-eslint/typescript-eslint/pull/10744#discussion_r1999068740)
 - ["I'd think `keyof` and/or `typeof` types should be flagged too:"](https://github.com/typescript-eslint/typescript-eslint/pull/8443#discussion_r1667410552)
@@ -112,7 +112,7 @@
 
 **Verify:** `declare const x: never; delete x[0];`, `declare const x: unknown; ...`, `declare const intrinsicError: NotKnownType;`. One standalone test per type.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["`never`: I'd think this should report an error, similar to `unknown`?"](https://github.com/typescript-eslint/typescript-eslint/pull/8094#discussion_r1449143075)
 - ["We should make sure `unknown` contextual types aren't reported on:"](https://github.com/typescript-eslint/typescript-eslint/pull/12317#discussion_r3311728670)
@@ -128,7 +128,7 @@
 
 **Verify:** `delete ((abc[((def))]))`, `...(map)`, `((z = y))`, `( /* */ ( z = y ) /* */ )`, `((() => void))`. Assert the same report as the unwrapped form and a syntactically valid fix.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["It works right now, but parenthesis tend to be an edge case we break on over time."](https://github.com/typescript-eslint/typescript-eslint/pull/10719#discussion_r1958259464)
 - ["Parenthesis and wrapping expressions are tricky."](https://github.com/typescript-eslint/typescript-eslint/pull/4848#discussion_r856473295)
@@ -144,7 +144,7 @@
 
 **Verify:** `Promise['all']`, ``Promise[`all`]``, `const key = 'all'; Promise[key]`, `set [p1](val) {}`, `'b.c': Foo`, `'foo-bar': string`, `'': string`, `'0': string`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["`const key = "all"; Promise[key]`"](https://github.com/typescript-eslint/typescript-eslint/pull/8094#discussion_r1449151419)
 - ["In the types, `JSONProperty`'s key is `JSONIdentifier | JSONStringLiteral | JSONNumberLiteral`"](https://github.com/michaelfaith/eslint-plugin-package-json/pull/851#discussion_r1938502998)
@@ -161,7 +161,7 @@
 
 **Verify:** For an assignment rule: `=`, `+=`, `||=`, `&&=`, `??=`. For a loop rule: `do`, `for`, `for-in`, `for-of`, `while`. For an import rule: copy each test with `export ... from`, and add `import B = A.B;`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["The rule mentions Call, Member, New, and As Expressions, as well as type assertions and variable declarators. Each should have a valid & invalid case."](https://github.com/typescript-eslint/typescript-eslint/pull/8334#discussion_r1477074987)
 - ["Missing test coverage for at least `??=`. Perhaps other assignment types. Add in any you can think of."](https://github.com/flint-fyi/flint/pull/389#discussion_r2419671689)
@@ -178,7 +178,7 @@
 
 **Verify:** `const Values = class {}`, `const testE = function (this: void) {}`, `class Apple extends class Banana {} {}`, `extends class WithName { ... }`, a class declared inside `if (x) { ... }`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Working in both class _declarations_ (`class Values {}`) as well as class _expressions_ (`const Values = class {}`)"](https://github.com/JoshuaKGoldberg/eslint-plugin-erasable-syntax-only/pull/14#discussion_r1957406691)
 - ["Inside a class extends clause, like `class Apple extends class Banana {}`"](https://github.com/typescript-eslint/typescript-eslint/pull/5840#discussion_r997589637)
@@ -195,7 +195,7 @@
 
 **Verify:** `Promise.resolve().catch((...[args]: [unknown]) => {})`, `...(condition && Promise.resolve({ key: 42 }))`, `...(condition ? Promise.resolve({ key: 42 }) : {})`, `const foo: Record<string, () => void> = { ...cbs };`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["`...(condition && Promise.resolve({ key: 42 }))`"](https://github.com/typescript-eslint/typescript-eslint/pull/5053#discussion_r879670290)
 - ["`Promise.resolve().catch((...[args]: [unknown]) => {`"](https://github.com/typescript-eslint/typescript-eslint/pull/8383#discussion_r1483256543)
@@ -212,7 +212,7 @@
 
 **Verify:** Default: `exports` isn't sorted. With `options: [["exports"]]`: it is. For overlap: enable `allowAliases` and confirm `allowTemplateLiterals` doesn't override it. For allowlists, add a negative case that isn't listed.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["By default, the rule does not enforce sorting for `"exports"`"](https://github.com/michaelfaith/eslint-plugin-package-json/pull/918#discussion_r1976555114)
 - ["This PR's change breaks that last bit (and would be a breaking change as a result): it makes `allowTemplateLiterals` always override `allowAliases`."](https://github.com/typescript-eslint/typescript-eslint/pull/5097#discussion_r888061529)
@@ -229,7 +229,7 @@
 
 **Verify:** `function withValues<T extends string[]>(values: T) {}`, `function f<T extends unknown>(t: T[]) { delete t[0]; }`, `id<T extends 'a' | 'b'>(x: T)`, `<T = string>`, `const curried = <Outer>(outer: Outer) => <Inner>(inner: Inner) => ({ outer, inner });`
 
-**From your reviews:**
+**From past reviews:**
 
 - ["The following features tend to break things with type parameters:"](https://github.com/typescript-eslint/typescript-eslint/pull/11918#discussion_r2682741294)
 - ["Generic types (making sure type parameter constraints are respected)"](https://github.com/typescript-eslint/typescript-eslint/pull/7957#discussion_r1398732805)
@@ -246,7 +246,7 @@
 
 **Verify:** ``myTag`abc`;``, ``tag`prefix ${'a' as const}` ``, `new Example('a' as const);`, `new K().m('a' as const);`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Non-generic `new` calls are a thing to test too:"](https://github.com/typescript-eslint/typescript-eslint/pull/12317#discussion_r3312470395)
 - ["**False positive** tagged template substitution with a generic tag function:"](https://github.com/typescript-eslint/typescript-eslint/pull/12317#discussion_r3311729928)
@@ -263,7 +263,7 @@
 
 **Verify:** `enum E { This, That }`, `enum E { This = '', That = 'a' }`, `enum E { This = '', That = 0 }`, `enum E { A = 5, B, C = 1 }`, `enum E { ['a'] = 1 }`, `enum E { ['a' /* gotcha */] = 1 }`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Mixed enums (`enum ExampleEnum { This = '', That = 0 }`)"](https://github.com/typescript-eslint/typescript-eslint/pull/6096#discussion_r1059523859)
 - ["Numbers that are out-of-order, including gaps and/or implicit values"](https://github.com/JoshuaKGoldberg/eslint-plugin-erasable-syntax-only/pull/39#discussion_r2005464161)
@@ -280,7 +280,7 @@
 
 **Verify:** `constructor(public a: string) {}`, `constructor(protected a: string) {}`, `constructor(readonly a: string) {}`, `constructor(private readonly a: string) {}`, plus a getter and setter pair.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["The selector describes being able to take in other modifies (`private`, `readonly`, etc.) - but this test only tests `static`."](https://github.com/typescript-eslint/typescript-eslint/pull/8084#discussion_r1449069141)
 - ["IMO there should also be tests for other kinds of parameter properties:"](https://github.com/eslint/eslint/pull/19551#discussion_r2014007097)
@@ -297,7 +297,7 @@
 
 **Verify:** `enum E { A = '', B = '' }` and `enum E { A = 0, B = 0 }` for a duplicate check; `arr.filter(f)[0.0]`, `[-0]`, `[-0n]`, and a template-literal `0` index for an index check.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["There should probably be test cases for falsy values: `''` and `0`."](https://github.com/typescript-eslint/typescript-eslint/pull/4833#discussion_r855610518)
 - ["Negatives for all the bigint/number cases: `-0`, `-0.0`, `-0n`, etc."](https://github.com/typescript-eslint/typescript-eslint/pull/8216#discussion_r1446593874)
@@ -314,7 +314,7 @@
 
 **Verify:** `import {} from 'foo';`, `{}` with no `"scripts"` key, `{ "scripts": {} }`, `"repository": { "url": "..." }` with no `"type"`, `"some-custom-array": [ [] ]`, an empty tuple `[]`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["We should ensure that doesn't crash at the least, and also has some reasonable behavior."](https://github.com/typescript-eslint/typescript-eslint/pull/8308#discussion_r1469912070)
 - ["Missing test case, I think: what happens if `"repository"` is missing a `"type"`."](https://github.com/michaelfaith/eslint-plugin-package-json/pull/70#discussion_r1460171184)
@@ -330,7 +330,7 @@
 
 **Verify:** 1 incorrect + 2 correct values, 2 incorrect values, 2 incorrect + 1 correct, duplicates, `"bin": { "": "" }` producing two `errors` entries, multiple `/// <reference` comments.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["1 incorrect value + 2 correct values"](https://github.com/michaelfaith/eslint-plugin-package-json/pull/903#discussion_r1996239636)
 - ["Missing test case: >1 elements in `errors`."](https://github.com/michaelfaith/eslint-plugin-package-json/pull/1082#discussion_r2140184747)
@@ -347,7 +347,7 @@
 
 **Verify:** `declare namespace myLib { let valueInside: number; } let valueOutside: number;`, and `namespace Outer { declare namespace Declared { namespace InsideDeclared {} } }`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["it's definitely an important line to have for cases of variables after a declared namespace:"](https://github.com/eslint/eslint/pull/19540#discussion_r2016253675)
 - ["I think there are few more edge cases that should be tested around declared namespaces inside a non-declared one, both exported and not:"](https://github.com/typescript-eslint/typescript-eslint/pull/4844#discussion_r855622480)
@@ -363,7 +363,7 @@
 
 **Verify:** `A extends B, C` where `B` is listed, where `C` is listed, and `A extends B, C` + `B extends D, E` where `E` is listed. Also `extends Bar implements Foo, Baz` and `interface StillUnsafe extends Function`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["`A extends B, C` + `B extends D, E` where `E` is listed"](https://github.com/typescript-eslint/typescript-eslint/pull/11764#discussion_r2538328758)
 - ["`extends Bar implements Foo, Baz`"](https://github.com/typescript-eslint/typescript-eslint/pull/9707#discussion_r1967876256)
@@ -380,7 +380,7 @@
 
 **Verify:** `declare function example(x: 'a' | 'b'): void; declare function example<T>(value: T): T; example('a' as const);` and an interface with `(): undefined;` and `(value: string): void;`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Overload signatures are a mess to deal with and tend to break over time."](https://github.com/typescript-eslint/typescript-eslint/pull/11826#discussion_r2617207576)
 - [""Fun" bug farm edge case that should have coverage, overloaded callee with mixed generic + non-generic signatures:"](https://github.com/typescript-eslint/typescript-eslint/pull/12317#discussion_r3311728966)
@@ -396,7 +396,7 @@
 
 **Verify:** `const { a: c } = values;`, `const { b, a } = values;`, `.catch(({ gotcha }) => { })`, `const [a, b = 'default'] = tuple;`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["`const { a: c } = values;`"](https://github.com/typescript-eslint/typescript-eslint/pull/6281#discussion_r1057819728)
 - ["`Promise.resolve('object destructuring').catch(({ gotcha }) => { });`"](https://github.com/typescript-eslint/typescript-eslint/pull/8383#discussion_r1483256543)
@@ -412,7 +412,7 @@
 
 **Verify:** `{ "outer": { "repository": "https://github.com/a/b" } }` is valid for a top-level `repository` rule. A nested object with and without `author` should not change `require-author`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Could you add a `valid` case where the top-level keys are sorted but sub-keys aren't? That way we know the logic is still just looking at the top-level keys."](https://github.com/michaelfaith/eslint-plugin-package-json/pull/312#discussion_r1582301716)
 - ["Nested object with and without `author`, to make sure only the root-level one is checked"](https://github.com/michaelfaith/eslint-plugin-package-json/pull/851#discussion_r1938502998)
@@ -428,7 +428,7 @@
 
 **Verify:** `function require(...) {}` then `require('x')`, `const CustomFunction = Function; const fn = new CustomFunction();`, `const key = 'all'; Promise[key]`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["The rule's source includes logic around scope analysis (good!) but the tests don't. Could you add cases for user-defined `require` please?"](https://github.com/typescript-eslint/typescript-eslint/pull/8334#discussion_r1477074987)
 - ["Wrong, this should be a failure case. The rule should use scope analysis (or, pending #400, type checking) to go-to-definition on calls like this."](https://github.com/flint-fyi/flint/pull/462#discussion_r2429592065)
@@ -443,7 +443,7 @@
 
 **Verify:** `const value = 1; export const alsoValue = value; export type Type = typeof value;`
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Can you also add a test for the case of a single variable being used in both a type position and a non-type / runtime?"](https://github.com/typescript-eslint/typescript-eslint/pull/9330#discussion_r1653890552)
 - ["I personally don't use it, but I think some folks would still want errors in cases like:"](https://github.com/typescript-eslint/typescript-eslint/pull/8474#discussion_r1492943851)
@@ -458,7 +458,7 @@
 
 **Verify:** `false & { brand }`, `true & { brand }`, `'' & { __brand: string }`, `{} & { __brand: string }`, `string & string`, and a branded value swapped into `if (('' && {}) || (0 && void 0)) { }`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["`{} & { __brand: string }`: should this still cause a report?"](https://github.com/typescript-eslint/typescript-eslint/pull/7466#discussion_r1295027810)
 - ["Also: how about `false & { brand }` and `true & { brand }`?"](https://github.com/typescript-eslint/typescript-eslint/pull/9297#discussion_r1653881087)
@@ -474,7 +474,7 @@
 
 **Verify:** `function testD(this: void) {}`, `const testE = function (this: void) {}`, `function test(a: void, b);`, and an assertion function with a `this` parameter.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Which is a symptom of a bug, I think: that having a non-`this` first param typed as `void` isn't tested."](https://github.com/eslint/eslint/pull/19557#discussion_r2052492994)
 - ["`this` can also be annotated on function declarations & expressions:"](https://github.com/eslint/eslint/pull/19557#discussion_r2052489612)
@@ -490,7 +490,7 @@
 
 **Verify:** `string | undefined`, `string | null | undefined`, `T extends 'a' | null`, and `interface Unioned { (): undefined | void; }`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Another common soruce of bugs is knowing when to check for a type flag being set vs. something specifically and only being a type."](https://github.com/typescript-eslint/typescript-eslint/pull/11826#discussion_r2617210237)
 - ["Nullability / flag checking can be tricky & gets busted over time a lot."](https://github.com/typescript-eslint/typescript-eslint/pull/4509#discussion_r799066766)
@@ -506,7 +506,7 @@
 
 **Verify:** Keys such as `[𐌘]`, `"𐌘"`, and `🎁`, and `// @ts-expect-error 👨‍👩‍👧‍👦`, in both `valid` and `invalid`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Missing test coverage: non-English keys such as `[𐌘]`, `"𐌘"`, and `🎁`."](https://github.com/typescript-eslint/typescript-eslint/pull/6211#discussion_r1083382065)
 - ["mention including more test cases around other unusual characters."](https://github.com/typescript-eslint/typescript-eslint/pull/5704#discussion_r985055361)

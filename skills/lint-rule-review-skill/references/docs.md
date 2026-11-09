@@ -46,7 +46,7 @@ Verify: List options in the rule's schema and confirm each has a docs entry and 
 
 ## Document every option: why it exists, its values, and paired examples
 
-(24; typescript-eslint)
+(24)
 
 Every new option or newly supported syntax should have its own section showing how to configure it plus incorrect and correct code tabs for that configuration.
 
@@ -116,7 +116,7 @@ Verify: Paste each snippet into the playground with `strict` on. The only diagno
 
 ## Link authoritative external docs under Further Reading
 
-(14; flint)
+(14)
 
 When a rule targets a language or platform feature with confusing behavior, or an option exists because of a long discussion, check the docs link to MDN, the TS Handbook, the relevant spec page, or the issue comment that explains it. Link the final resource directly, not a comment that points to it.
 

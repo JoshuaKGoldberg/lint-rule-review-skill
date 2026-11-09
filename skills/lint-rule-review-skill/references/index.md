@@ -1,6 +1,6 @@
 # Pattern index
 
-Every pattern, most common first in each file. Skim this, then read only the sections that fit the change: each title is a `##` heading in its file, so `grep -A8 '^## <title>' <file>` gets the details.
+Every pattern, most common first in each file. Skim this, then read only the sections that fit the change: each title is a `##` heading in its file, so search for it and read the dozen or so lines below it.
 
 ## bugs.md
 

@@ -232,7 +232,7 @@ for slug, (heading, groups) in S.items():
         if r["applies_to"] != ["any"]: tags.append(", ".join(r["applies_to"]))
         lines += [f"## {r['title']}", "", f"*{' · '.join(tags)}*", "", f"**Check:** {r['check']}", "", f"**Why:** {r['why']}", ""]
         if r["verify"]: lines += [f"**Verify:** {r['verify']}", ""]
-        lines += ["**From your reviews:**", ""]
+        lines += ["**From past reviews:**", ""]
         lines += [f"- [\"{e['quote']}\"]({e['url']})" for e in r["examples"]] + [""]
     open(f"catalog/{slug}.md", "w").write("\n".join(lines))
     merged += rows

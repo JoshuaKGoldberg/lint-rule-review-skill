@@ -10,7 +10,7 @@
 
 **Verify:** Test `if (a /* ... */ .b === a.b)` still reports, and `type A = string; type B = string; type C = A | B;` for duplicate-type checks.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["We generally try not to use `sourceCode.getText` or similar in rules if at all possible. It's less reliable than comparing AST and/or types"](https://github.com/typescript-eslint/typescript-eslint/pull/5728#discussion_r985673736)
 - ["As convenient as `sourceCode.getText` is, most cases where it's used are susceptible to bugs."](https://github.com/typescript-eslint/typescript-eslint/pull/8656#discussion_r1576854167)
@@ -27,7 +27,7 @@
 
 **Verify:** Add as `invalid`: `const value = 0; values.filter(f)[value];` (same report as `[0]`) and `const myObject = { /** @deprecated */ recommended: null }; const key = 'recommended'; myObject[key];`. Add as `valid` for key comparison: `class Mx { set p1(val) {} get ['p1']() { return ''; } }`. For string arguments, test a template literal such as require(`foo`).
 
-**From your reviews:**
+**From past reviews:**
 
 - ["We have at least one utility for this, `getStaticValue`."](https://github.com/typescript-eslint/typescript-eslint/pull/8216#discussion_r1446587878)
 - ["Just requesting changes on handling computed values."](https://github.com/typescript-eslint/typescript-eslint/pull/8249#pullrequestreview-1852321000)
@@ -44,7 +44,7 @@
 
 **Verify:** Add as `valid`: `class Map { value = 1; } const map = new Map(); Object.values(map);` and `interface Gotcha { apply(...args: unknown[]): void; } declare const gotcha: Gotcha; gotcha.apply(null, 'abc');`. Repeat with a local `function Boolean(value) {}` or `class Uint8Array<T> {}` for whichever global the rule names.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["It's not enough to just look at the name. If someone happens to redeclare their own class, such as `class Uint8Array<T>`, the rule should know to check that:"](https://github.com/typescript-eslint/typescript-eslint/pull/10477#discussion_r1885099562)
 - ["[Bug] False report case:"](https://github.com/typescript-eslint/typescript-eslint/pull/9369#discussion_r1657110257)
@@ -61,7 +61,7 @@
 
 **Verify:** Add cases such as `class Annoying { ['ab']() {} }`, `const _ = class { ... }`, `work(other: this)`, `interface I { property; }`, and `function* test(): Generator<number | string>`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["This'll need to handle `this` and namespace types, no?"](https://github.com/typescript-eslint/typescript-eslint/pull/8443#discussion_r1612698375)
 - ["Don't forget the other types of assignment expressions: `||=`, `??=`, `|=`, there may be more I'm not remembering."](https://github.com/flint-fyi/flint/pull/392#discussion_r2416520899)
@@ -78,7 +78,7 @@
 
 **Verify:** Delete the assertion, list the union members the compiler reports, and add a test for each reachable one, such as a computed or literal method key.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["The fact that an `as` was needed to get this code to type check means that the code isn't handling some case that it needs to handle."](https://github.com/typescript-eslint/typescript-eslint/pull/5848#discussion_r1092547616)
 - ["If a property (here, `id`) doesn't exist it's because the node legitimately might be a type that doesn't have it."](https://github.com/typescript-eslint/typescript-eslint/pull/7808#discussion_r1367962086)
@@ -95,7 +95,7 @@
 
 **Verify:** Add a case with an undeclared type, such as `declare const value: NotKnown | 0;`, and assert the message mentions the `error` type. Review test fixtures for names that aren't declared in the same case, like `const nullish = nullish;`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["This doesn't mention the type as being an "error typed value" the way the other rules do."](https://github.com/typescript-eslint/typescript-eslint/pull/9555#discussion_r1685529895)
 - ["Is there a reason to allow `unknown`s? I would have thought that they should be warned on, since they're not guaranteed to be a `Promise`."](https://github.com/typescript-eslint/typescript-eslint/pull/8094#discussion_r1449132692)
@@ -112,7 +112,7 @@
 
 **Verify:** Add tests for `A | B`, `A & B`, `T[]`, `[T]`, and a union nested in a tuple.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Intersections (`T & T`) and unions (`T | T`): skip into constituent types"](https://github.com/typescript-eslint/typescript-eslint/pull/9714#issuecomment-2356004523)
 - ["Mostly requesting changes around adding unit test coverage for more edge cases, in particular tuples."](https://github.com/typescript-eslint/typescript-eslint/pull/5731#pullrequestreview-1129231503)
@@ -129,7 +129,7 @@
 
 **Verify:** For each exempted form, move the test to `invalid` and see whether anything justifies moving it back. Corpus examples: `void str['toUpperCase']();`, `([]?.filter(f))[0];`, `{ ...new A() }`, and `class A { constructor(b: 'c' | 'd') { this.b = b; } }`-style cases that an `Identifier`-only check skips.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Why would this be exempted? `node.computed` is irrelevant here."](https://github.com/typescript-eslint/typescript-eslint/pull/12218#discussion_r3319734993)
 - ["Why not? This seems like it'd be a case folks would want to hit. We'd probably get a bug report from it not working."](https://github.com/typescript-eslint/typescript-eslint/pull/8216#discussion_r1446587187)
@@ -146,7 +146,7 @@
 
 **Verify:** Add tests with `function f<T extends string>(value: T)` alongside the concrete `string` case, plus an unconstrained `<T>`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Yet another case of needing to use the constrained type instead of the original type."](https://github.com/typescript-eslint/typescript-eslint/pull/12125#pullrequestreview-3987101781)
 - ["Yeah I don't _love_ completely omitting checking for type parameters."](https://github.com/typescript-eslint/typescript-eslint/pull/12127#pullrequestreview-3987115182)
@@ -162,7 +162,7 @@
 
 **Verify:** Add as `invalid`: `function test([a, , b]: [boolean, number, object, string]) {}` (reports `string`), `function receive([value]: [string, ...string[]]) {}` (rest type unused), and `` const other = 'abc'; `before${'def'}middle${other}after`; `` (reports only `${'def'}`). For a loop, use two bad entries and expect two errors.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["There can still be an unused property even in the presence of empty slots:"](https://github.com/typescript-eslint/typescript-eslint/pull/10344#discussion_r1854634367)
 - ["It's possible for a rest type to be unused. This rule should handle that."](https://github.com/typescript-eslint/typescript-eslint/pull/10344#discussion_r1854604702)
@@ -179,7 +179,7 @@
 
 **Verify:** Add as `invalid`, not `valid`: `if (foo) { /* comment */ foo.bar(); }`. For a rule with a suggestion, add a case the suggestion can't handle and assert the error is present with no suggestions, for example `declare const arr: unknown[]; declare const i: number | string; delete arr[i];`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["The lint rule should still report even if it can't figure out a suggestion. This and the other `return;` cause it to bail out of both reporting and creating a suggestion."](https://github.com/JoshuaKGoldberg/eslint-plugin-erasable-syntax-only/pull/234#discussion_r2465895899)
 - ["I think we should still report in this case. Folks put comments all over the place sometimes; on their own they don't indicate a lint rule should be ignored."](https://github.com/typescript-eslint/typescript-eslint/pull/10137#discussion_r1827900972)
@@ -195,7 +195,7 @@
 
 **Verify:** Run `grep -n "messageId\|isUnhandled: true" src/rules/<rule>.ts` and require at least one test per hit that exercises the change. Example `valid` case: `declare const arrayOrPromiseTuple: Foo<unknown>[]; arrayOrPromiseTuple; type Foo<T> = Promise<T> & { hey?: string };` with `allowForKnownSafePromises: [{ from: 'file', name: 'Foo' }]`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["There's also a `unsafeComputedMemberAccess` message ID that's reported. I think that's missing in this PR."](https://github.com/typescript-eslint/typescript-eslint/pull/9291#discussion_r1632092033)
 - ["This PR right now adds the `allowForKnownSafePromises` check for a couple places, but not all of them."](https://github.com/typescript-eslint/typescript-eslint/pull/8502#discussion_r1541670470)
@@ -209,7 +209,7 @@
 
 **Why:** If code is roughly not valid, the reviewer hesitates to feel confident in making changes. Silence is a safe starting point, and a bugfix can add the case later if users complain.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["If users complain we can add it as a bugfix later on - but if the code is roughly not valid, I'd hesitate to feel confident in making changes."](https://github.com/typescript-eslint/typescript-eslint/pull/6397#issuecomment-1593803357)
 - ["dealing with type parameters being used as type arguments (for now, just not reporting)"](https://github.com/typescript-eslint/typescript-eslint/pull/8173#pullrequestreview-1861642198)
@@ -225,7 +225,7 @@
 
 **Verify:** Duplicate a test case with a comment added and without semicolons, and confirm identical reports and fix availability.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Users really, really dislike it when aspects of code unrelated to a rule change how that rule works."](https://github.com/typescript-eslint/typescript-eslint/pull/5728#discussion_r997242704)
 - ["it'd be very confusing to users why adding a comment inside a type stops this rule from complaining on it."](https://github.com/typescript-eslint/typescript-eslint/pull/5728#discussion_r985673736)
@@ -241,7 +241,7 @@
 
 **Verify:** Add a test with a user-defined class that behaves like the built-in and another with a project augmentation of the built-in.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["I'm not a big fan of hardcoding in built-in classes. Users tend to write their own with names like `Bluebird`, `CachingMap`, etc. - and expect the same kind of lint checks for them."](https://github.com/typescript-eslint/typescript-eslint/pull/8509#discussion_r1528451293)
 - ["We generally look at how types behave (`isPromiseLike`) if there isn't a built-in API."](https://github.com/typescript-eslint/typescript-eslint/pull/4864#discussion_r864162489)
@@ -257,7 +257,7 @@
 
 **Verify:** Run `grep -n "getFlags() ===\|\.flags ===" src/rules/<rule>.ts`. Test each type condition with both a primitive and its literal, such as `declare const i: number;` and `declare const i: 1;`. If swapping the flag for its `*Like` group fails no test, add one.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Anywhere that checks type flags with a `===` should probably use a `tsutils` helper instead. We've seen odd edge cases with number literals vs. numbers before."](https://github.com/typescript-eslint/typescript-eslint/pull/6411#discussion_r1133448287)
 - ["You can use `tsutils.isTypeFlagSet` instead of this big name."](https://github.com/typescript-eslint/typescript-eslint/pull/5852#discussion_r1135111964)
@@ -273,7 +273,7 @@
 
 **Verify:** Add a nested case: `class First { constructor(public a: number) { class Second { constructor(public a: number) { this.a = a; } } new Second(0); this.a = a; } }`, including variants renaming either `a`. Add a top-level `return;` and assert that the rule doesn't crash.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Clearing `parameterProperties` on each new class won't hold up for inner classes declared inside outer classes."](https://github.com/typescript-eslint/typescript-eslint/pull/7089#discussion_r1257383051)
 - ["I don't think any kind of state on `Converter` is going to scale."](https://github.com/typescript-eslint/typescript-eslint/pull/11355#discussion_r2318775127)
@@ -289,7 +289,7 @@
 
 **Verify:** Run `grep -nE "TODO|XXX" src/rules/<rule>.ts tests/rules/<rule>.test.ts`. Each hit needs a test (even a failing one to discuss) or a linked issue.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Yeah we'll have to do something here to make this PR mergable."](https://github.com/typescript-eslint/typescript-eslint/pull/8249#discussion_r1471929896)
 - ["Can you include any test cases you're thinking of for them? Even if they're not passing right now, it'd be helpful to see."](https://github.com/typescript-eslint/typescript-eslint/pull/8173#discussion_r1477515097)
@@ -305,7 +305,7 @@
 
 **Verify:** Add `type Nested = ('' | ('' | (1)));` and `declare function fn2(): (never | 'foo') | 123;`. Both must behave the same as their flat forms.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["TS literals might be more deeply nested than 2 levels inside a parent:"](https://github.com/eslint/eslint/pull/19561#discussion_r2021314051)
 - ["This function doesn't account for parenthesized types. This code trips it up:"](https://github.com/typescript-eslint/typescript-eslint/pull/10744#discussion_r2399235195)
@@ -320,7 +320,7 @@
 
 **Verify:** Run the rule with `filename: 'file.d.mts'` and `'file.d.cts'`. For lib detection, declare a type in `./src/gotcha.lib.d.ts` and assert that it isn't treated as a default library type.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["This isn't exhaustive: DTS files could also be `.d.cts` or `.d.mts`."](https://github.com/eslint/eslint/pull/19565#discussion_r2010458934)
 - ["This will get tricked by types in files like `./src/gotcha.lib.d.ts`."](https://github.com/typescript-eslint/typescript-eslint/pull/12046#discussion_r2970413672)

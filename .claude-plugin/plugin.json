@@ -1,10 +1,9 @@
 {
-	"name": "lint-rule-review",
-	"version": "0.0.0",
-	"description": "Reviews custom lint rules by trying to break them.",
+	"name": "lint-rule-review-skill",
+	"description": "Thoroughly reviews custom ESLint rules. 🕵️",
 	"author": {
 		"name": "Josh Goldberg"
 	},
-	"repository": "https://github.com/JoshuaKGoldberg/lint-rule-review",
+	"repository": "https://github.com/JoshuaKGoldberg/lint-rule-review-skill",
 	"license": "MIT"
 }

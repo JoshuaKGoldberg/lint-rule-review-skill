@@ -41,7 +41,7 @@ Verify: Test `if (a /* ... */ .b === a.b)` still reports, and `type A = string; 
 
 ## Resolve static keys and values instead of matching only `Literal` nodes
 
-(15; typescript-eslint)
+(15)
 
 Look for `type === AST_NODE_TYPES.Literal` or `Identifier` checks on computed keys, indexes, and string arguments. They miss `[key]` with a const variable, `['p1']` compared against `p1`, and template literals. Use `getStaticValue` or an equivalent utility.
 

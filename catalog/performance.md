@@ -10,7 +10,7 @@
 
 **Verify:** Read each listener for type checker calls that run before a cheap syntactic bail-out.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["We'd want to do them in that order because asking the type checker for anything can be slow."](https://github.com/typescript-eslint/typescript-eslint/pull/5728#issuecomment-1307161253)
 - ["Generally, asking for type information is the most performance-expensive part of rules."](https://github.com/typescript-eslint/typescript-eslint/pull/8094#discussion_r1449111178)
@@ -25,7 +25,7 @@
 
 **Why:** Continued iteration keeps paying for calls such as `getStart()`, and recursing down into a node with many children can take a lot of time. A traverser that can't break is the wrong tool.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["If `numExplicitUses >= 2` then we can bail out of the loop for the `typeParameter`."](https://github.com/typescript-eslint/typescript-eslint/pull/8173#discussion_r1445179350)
 - ["That means we can bail out of the loop early as soon as a match is found."](https://github.com/typescript-eslint/typescript-eslint/pull/6096#discussion_r1032949483)
@@ -42,7 +42,7 @@
 
 **Verify:** Confirm the value depends on nothing narrower than the options, then move it.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["This re-runs the `new RegExp` on each `switch` statement."](https://github.com/typescript-eslint/typescript-eslint/pull/10218#discussion_r1854542175)
 - ["any particular reason to put this inside the `ExportNamedDeclaration` function? It could go above the `return` to only have to be called once."](https://github.com/typescript-eslint/typescript-eslint/pull/3936#discussion_r730317031)

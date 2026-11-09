@@ -8,7 +8,7 @@
 
 **Why:** Concise, explicit docs help readers. The reviewer has soured on extension docs that don't explicitly say what gets added.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Great example, really clear and concise."](https://github.com/typescript-eslint/typescript-eslint/pull/10010#discussion_r1765015711)
 - ["I've started souring on extension docs that don't explicitly say what gets added."](https://github.com/typescript-eslint/typescript-eslint/pull/7709#discussion_r1349775064)
@@ -23,7 +23,7 @@
 
 **Why:** A perfect test tests one thing and is very clear. Coverage this thorough earns explicit credit.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["This is a perfect test 😁 tests one thing and is very clear. I like it!"](https://github.com/typescript-eslint/typescript-eslint/pull/9167#discussion_r1623586805)
 - ["Super thorough tests coverage for `a: number` variants, nicely done!"](https://github.com/typescript-eslint/typescript-eslint/pull/7525#discussion_r1313844332)
@@ -37,7 +37,7 @@
 
 **Why:** Comments are usually trimmed, but rules dealing with a lot of tricky points benefit, and helpful comments make the code easier to read and review.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["I normally requests folks use fewer comments, as they often just restate what's directly inferable from code. But this rule by nature deals with a lot of tricky points and I think the comments are very helpful here."](https://github.com/typescript-eslint/typescript-eslint/pull/9707#discussion_r2649257039)
 - ["Lovely. Nice investigation and very helpful comment! 🙂"](https://github.com/typescript-eslint/typescript-eslint/pull/10006#discussion_r1771756512)
@@ -51,7 +51,7 @@
 
 **Why:** Good separation makes tricky logic readable and reviewable, even with many logic cases inherent to the feature.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["You've done a wonderful job of separating out logic to helper functions that made it easier to read through and understand."](https://github.com/typescript-eslint/typescript-eslint/pull/10861#pullrequestreview-2691361883)
 - ["I like the separation out into the clearly named variables."](https://github.com/typescript-eslint/typescript-eslint/pull/10550#pullrequestreview-2525809887)
@@ -66,7 +66,7 @@
 
 **Why:** Clear code makes the reviewer's life easier and is a real pleasure to review.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["This file was _really_ clear to read through. Especially the contents of the `create()` function. A real pleasure to review."](https://github.com/typescript-eslint/typescript-eslint/pull/8509#discussion_r1741299526)
 - ["I like how you split this up into functions 🙂 much easier to read through the main logic flow than keeping it all inline would be."](https://github.com/typescript-eslint/typescript-eslint/pull/7539#discussion_r1417918341)
@@ -80,7 +80,7 @@
 
 **Why:** The reviewer enjoys seeing how much code is removed and how much cleaner a file becomes.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["I like how much code is getting removed here!"](https://github.com/typescript-eslint/typescript-eslint/pull/11760#discussion_r2538157422)
 - ["this reduction in logic is quite nice..."](https://github.com/flint-fyi/flint/pull/2294#discussion_r2788996731)
@@ -96,7 +96,7 @@
 
 **Verify:** Add test cases with parenthesized expressions and sequence expressions to confirm a fixer's output is still valid.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Nice 😄 I probably would have forgotten about sequence expressions..."](https://github.com/typescript-eslint/typescript-eslint/pull/8216#discussion_r1471897435)
 - ["I personally would probably have forgotten to account for these parenthesis 😄 fair play!"](https://github.com/typescript-eslint/typescript-eslint/pull/8067#discussion_r1428245019)
@@ -110,7 +110,7 @@
 
 **Why:** Reuse is called good craft by the reviewer.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Great reuse of the existing functions!"](https://github.com/typescript-eslint/typescript-eslint/pull/8673#discussion_r1722178223)
 - ["I like how you extracted out the shared logic here 😄 good craft!"](https://github.com/typescript-eslint/typescript-eslint/pull/7541#discussion_r1326094840)

@@ -7,5 +7,5 @@
 /eval
 /pnpm-lock.yaml
 /scripts
-/skills/lint-rule-review/assets
-/skills/lint-rule-review/references
+/skills/lint-rule-review-skill/assets
+/skills/lint-rule-review-skill/references

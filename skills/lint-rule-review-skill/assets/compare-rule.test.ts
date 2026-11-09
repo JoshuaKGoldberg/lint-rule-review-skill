@@ -5,7 +5,7 @@
 import { Linter } from 'eslint';
 import { appendFileSync, writeFileSync } from 'node:fs';
 import * as path from 'node:path';
-import { it } from 'vitest';
+import { it } from 'vitest'; // ADJUST: the repo's test runner
 
 import * as parser from '@typescript-eslint/parser';
 
@@ -40,7 +40,8 @@ const diagnostics = {
         const file = program.getSourceFile(context.filename);
         for (const diagnostic of [
           ...program.getSyntacticDiagnostics(file),
-          ...program.getSemanticDiagnostics(file),
+          // typescript-eslint turns on noUnusedLocals, and an unused variable doesn't make a fixture wrong.
+          ...program.getSemanticDiagnostics(file).filter((diagnostic: any) => !diagnostic.reportsUnnecessary),
         ]) {
           const text = diagnostic.messageText;
           context.report({
@@ -63,7 +64,7 @@ function optionsFor(rule: string, testCase: Case) {
 function config(rule: string, testCase: Case) {
   return [
     {
-      files: ['**/*.ts', '**/*.tsx'],
+      files: ['**/*.{cjs,cts,js,jsx,mjs,mts,ts,tsx}'],
       languageOptions: {
         parser,
         parserOptions: {
@@ -91,13 +92,14 @@ function run(rule: string, testCase: Case) {
       filename,
     });
     const reports = messages.map(message =>
-      message.fatal
+      message.ruleId === null
         ? `FATAL ${message.message}`
         : `${message.line}:${message.column}-${message.endLine}:${message.endColumn} ${message.message}`,
     );
     return {
       crashed: false,
-      fatal: messages.some(message => message.fatal),
+      // Parse errors, and notices such as no config matching the file, which mean the rule never ran.
+      fatal: messages.some(message => message.ruleId === null),
       fixedOutput: fixed.fixed ? fixed.output : undefined,
       fixParseError: fixed.messages.find(message => message.fatal)?.message,
       reports,
@@ -112,12 +114,16 @@ function run(rule: string, testCase: Case) {
       ),
     };
   } catch (error) {
-    return { crashed: true, error: String(error), fatal: false, reports: [] };
+    const text = String(error);
+    // The rule's schema refused the options, so the rule never ran.
+    return { configError: text.includes('Key "rules"'), crashed: true, error: text, fatal: false, reports: [] };
   }
 }
 
 function classify(testCase: Case, baseResult: any, headResult: any) {
-  if (headResult.crashed) return baseResult.crashed ? 'EXISTING CRASH' : 'CRASH';
+  const isNewRule = head === (base as unknown);
+  if (headResult.configError) return 'HARNESS PROBLEM: head rejected these options';
+  if (headResult.crashed) return baseResult.crashed && !baseResult.configError && !isNewRule ? 'EXISTING CRASH' : 'CRASH';
   if (headResult.fatal) return 'FATAL: FIXTURE OR CONFIG PROBLEM';
   if (headResult.fixParseError) return 'FIX PRODUCES INVALID CODE';
   if (
@@ -127,14 +133,13 @@ function classify(testCase: Case, baseResult: any, headResult: any) {
     return 'WRONG FIX';
   }
   const headRight = headResult.reports.length === testCase.expected;
-  const baseRight = baseResult.reports.length === testCase.expected;
-  if (head === (base as unknown)) return headRight ? 'ok' : 'WRONG';
+  const baseRight = !baseResult.crashed && baseResult.reports.length === testCase.expected;
+  if (isNewRule || baseResult.configError) return headRight ? 'ok' : 'WRONG';
   if (headRight && !baseRight) return 'FIXED BY PR';
   if (!headRight && baseRight) return 'REGRESSION';
-  if (!headRight) return 'EXISTING BUG';
-  // Same count, so check whether anything else moved: read these, because a changed message may be a bug.
-  const same = JSON.stringify(baseResult) === JSON.stringify(headResult);
-  return same ? 'ok' : 'CHANGED OUTPUT';
+  // Read these, because a changed message or a different wrong count may be the PR's own bug.
+  if (JSON.stringify(baseResult) !== JSON.stringify(headResult)) return 'CHANGED OUTPUT';
+  return headRight ? 'ok' : 'EXISTING BUG';
 }
 
 it('compares head and base', () => {
@@ -158,7 +163,7 @@ it('compares head and base', () => {
       })}\n`,
     );
   }
-  if (cases.length > 1 && baseCrashes === cases.length) {
+  if (cases.length > 1 && baseCrashes === cases.length && head !== (base as unknown)) {
     // Results above would all read as FIXED BY PR, which is almost certainly wrong.
     appendFileSync(
       output,

@@ -46,7 +46,7 @@ Verify: Assert exact output for `{ "files": ["README.md", null, "./package.json"
 
 ## Ask whether each report can have a fixer or suggestion
 
-(6; flint)
+(6)
 
 For each report without `fix` or `suggest`, ask whether a safe fix or suggestion would be straightforward, including on secondary message IDs.
 

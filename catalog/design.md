@@ -10,7 +10,7 @@
 
 **Verify:** Read `git diff --stat` against the base branch and justify every file outside the rule, its tests, its docs, and its registration.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Lots of unexpected changes in this file - could you please revert them?"](https://github.com/michaelfaith/eslint-plugin-package-json/pull/786#discussion_r1932750358)
 - ["We try to keep PRs single-purpose so it's easier to review them and easier to determine when bugs or fixes were introduced."](https://github.com/typescript-eslint/typescript-eslint/pull/4864#discussion_r864126706)
@@ -27,11 +27,11 @@
 
 **Verify:** Check `meta.docs.recommended` on a new rule against the target release. For deprecations, confirm the rule has left generated configs. Confirm each case requested in the issue is covered or has a test.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Pretty much any logical change to a lint rule could be seen as a "breaking" change."](https://github.com/typescript-eslint/typescript-eslint/pull/4582#issuecomment-1064036602)
 - ["Unfortunately, adding to the _recommended_ rulesets is a breaking change. This'll have to be relegated to _strict_ until the next major version."](https://github.com/typescript-eslint/typescript-eslint/pull/7957#discussion_r1416263411)
-- ["Adds additional checks to an existing rule that causes new reports in a small-to-medium set of cases in an average codebase"](https://github.com/typescript-eslint/typescript-eslint/pull/10106#issuecomment-2466809966)
+- ["I think this is a breaking change and blocked on going into our next major release?"](https://github.com/typescript-eslint/typescript-eslint/pull/7709#pullrequestreview-1663599437)
 - ["We don't want to be in the business of recommending deprecated rules!"](https://github.com/typescript-eslint/typescript-eslint/pull/8334#discussion_r1477076939)
 
 ## Place the rule in the right preset, staging big rules out first
@@ -44,7 +44,7 @@
 
 **Verify:** Compare with the preset of the closest existing rule, for example `no-throw-literal` for promise rejection rules.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Making changes to the `recommended` or `recommended-requiring-type-checking` rulesets are breaking changes, but `strict` is fine to make any time."](https://github.com/typescript-eslint/typescript-eslint/pull/5852#discussion_r1020978400)
 - ["I think a gradual rollout to let folks try it will make sense"](https://github.com/typescript-eslint/typescript-eslint/pull/9707#pullrequestreview-3614387000)
@@ -61,7 +61,7 @@
 
 **Verify:** List every syntax or type form that can express the reported concept, and add a test for each.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["I think it'll need to be expanded to at least variables. Really, anything that can refer to a type: classes, interfaces / type aliases, namespaces, ..."](https://github.com/typescript-eslint/typescript-eslint/pull/8443#pullrequestreview-1898185043)
 - ["I think the only blocker (other than reverting unrelated changes) is also reporting on unnecessary non-string literals such as `bigint` and `number`."](https://github.com/typescript-eslint/typescript-eslint/pull/7957#pullrequestreview-1775966056)
@@ -78,7 +78,7 @@
 
 **Verify:** Test the option with one specifier of each `from` source.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["The more we use the shared _TypeOrValueSpecifier_ format the more review eyes we'll want on it."](https://github.com/typescript-eslint/typescript-eslint/pull/8556#pullrequestreview-2259338204)
 - ["The actual value for `.allow` is the `typeOrValueSpecifiersSchema` value from type utils:"](https://github.com/typescript-eslint/typescript-eslint/pull/10221#discussion_r1821290627)
@@ -93,7 +93,7 @@
 
 **Why:** Single-purpose PRs get improvements in sooner without being blocked by bigger discussions. Tricky logic is delicate to expand, so go with what's working and let folks file a follow-up.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Let's ignore interfaces in this PR altogether. Adding support for them in the rule would be a separate issue."](https://github.com/typescript-eslint/typescript-eslint/pull/9536#issuecomment-2296389878)
 - ["IMO it'd be best to go with what's working now, and let folks file a follow-up if they really want."](https://github.com/typescript-eslint/typescript-eslint/pull/11918#issuecomment-4104566073)
@@ -110,7 +110,7 @@
 
 **Verify:** Search for rules in the same family and compare their handling of the changed case.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["I also am thinking - should a similar fix be applied to the other `any*` rules?"](https://github.com/flint-fyi/flint/pull/2516#pullrequestreview-4030688887)
 - ["I do think it would be odd for users if the other case didn't also get a fixer though."](https://github.com/eslint/eslint/pull/19952#pullrequestreview-3051663384)
@@ -125,7 +125,7 @@
 
 **Why:** Rules can try harder than they need to to give the right errors. Less logic and more coaching in the messages can be more accurate and precise for users.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["With a bit less logic & a bit more coaching in the messages, I think it'll be more accurate & precise for users."](https://github.com/typescript-eslint/typescript-eslint/pull/8509#pullrequestreview-1942799069)
 - ["I think the only blocker for me is the removing the second line of the `this` messages - WDYT?"](https://github.com/typescript-eslint/typescript-eslint/pull/11704#pullrequestreview-3614017464)
@@ -142,7 +142,7 @@
 
 **Verify:** Pass a misspelled option in a schema test and confirm config validation fails.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["I'm not a fan of truthy defaults for unspecified values."](https://github.com/typescript-eslint/typescript-eslint/pull/9954#discussion_r1781091655)
 - ["Inline array/string options are nice and succinct but don't scale well when other options get added in."](https://github.com/michaelfaith/eslint-plugin-package-json/pull/786#discussion_r2139956952)
@@ -157,7 +157,7 @@
 
 **Why:** A useful rule can still be a bad fit: it may be better iterated on in a separate plugin, not bound by the project's limited flexibility and staffing. Rules included by default have to stay relevant.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["think this rule would be better off in a separate plugin from typescript-eslint for now"](https://github.com/typescript-eslint/typescript-eslint/pull/8965#issuecomment-2187923184)
 - ["I think this should be in a separate plugin, actually."](https://github.com/flint-fyi/flint/pull/421#pullrequestreview-3332564201)
@@ -174,7 +174,7 @@
 
 **Verify:** Add a test that hits two code paths or two option groups at once and assert exactly one report.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["I think the direction is good - but the two new sub-groups shouldn't have overlapping matches, no?"](https://github.com/typescript-eslint/typescript-eslint/pull/8084#pullrequestreview-1861131146)
 - ["That's not for this rule to say. Ignoring unused property accesses is in the realm of"](https://github.com/typescript-eslint/typescript-eslint/pull/10137#discussion_r1854381893)
@@ -189,7 +189,7 @@
 
 **Why:** They're added complexity for a rule that hasn't been tried in the real world, and an option can always be added in a followup.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Why allow such a granular set of options? Is there a known use case where someone would want to skip, say, only `Object.values`?"](https://github.com/typescript-eslint/typescript-eslint/pull/9369#discussion_r1657096403)
 - ["If it's enabled, this rule will do nothing. So why include it at all? Users can always disable the rule."](https://github.com/typescript-eslint/typescript-eslint/pull/5848#discussion_r998884067)
@@ -204,7 +204,7 @@
 
 **Why:** Options and nuance cost code and review time. Users can always feature request an option, and a pre-1.0 or unreleased project has no need to keep things around for compatibility.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["For an initial version of the rule, I think nuance around suggestions aren't necessary."](https://github.com/typescript-eslint/typescript-eslint/pull/9707#pullrequestreview-2276237784)
 - ["I'm strongly leaning towards simplifying it a bit by removing the `withFix` check - what do you think?"](https://github.com/michaelfaith/eslint-plugin-package-json/pull/328#pullrequestreview-2091062943)
@@ -221,12 +221,11 @@
 
 **Verify:** Diff the base rule's schema against the extension's schema, and port the base rule's tests.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["I took a quick initial pass and think there should be an option added to maintain parity with ESLint core."](https://github.com/typescript-eslint/typescript-eslint/pull/10218#pullrequestreview-2413486777)
 - ["We don't add any major new functionality on top of base rules here."](https://github.com/typescript-eslint/typescript-eslint/pull/8640#issuecomment-2085530014)
 - ["I think we can reduce the lines of coded added by a bunch by reusing the base rule (`rules.Program()`)."](https://github.com/typescript-eslint/typescript-eslint/pull/5327#pullrequestreview-1064469487)
-- ["Do I need to support all options & sub-options from the base rule?"](https://github.com/typescript-eslint/typescript-eslint/pull/6211#issuecomment-1350175092)
 
 ## Add an option where the rule would ban valid code
 
@@ -236,7 +235,7 @@
 
 **Why:** It's not a linter's place to tell people not to use a totally valid pattern of code. A rule that can't be scoped ends up too opinionated and too restrictive to enable.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["It's IMO not our place as a linter to tell people not to use a totally valid pattern of code like that."](https://github.com/typescript-eslint/typescript-eslint/pull/7880#issuecomment-1819868988)
 - ["Just requesting changes on the missing `"allow-as-parameter"` equivalent."](https://github.com/typescript-eslint/typescript-eslint/pull/6749#pullrequestreview-1376709413)
@@ -251,7 +250,7 @@
 
 **Why:** Keeping legacy options makes a change non-breaking, deprecation itself isn't breaking, and removing functionality is disliked even when technically allowed on 0.x.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Keeping the legacy options around to make this non-breaking seems reasonable + necessary to me."](https://github.com/typescript-eslint/typescript-eslint/pull/10639#pullrequestreview-2561099367)
 - ["We're on 0.x so technically we can do whatever we want... but as a nicety for users I do like keeping the old one around for a while."](https://github.com/michaelfaith/eslint-plugin-package-json/pull/711#pullrequestreview-2526583032)
@@ -268,7 +267,7 @@
 
 **Verify:** Delete the whitespace-preserving branch; fix output should still parse, even if it is uglier.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["It's better to have a slightly worse formatted output from an autofix than to have to maintain many -often hundreds- of lines of code."](https://github.com/typescript-eslint/typescript-eslint/pull/5728#issuecomment-1307161253)
 - ["We generally don't try to put effort into rule fixers towards respecting nuances of original source file formatting."](https://github.com/typescript-eslint/typescript-eslint/pull/7564#issuecomment-1698327746)
@@ -283,7 +282,7 @@
 
 **Why:** This choice changes the rule's correctness, its cost, and which options are possible, so it should be settled with the team before polish.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Unless someone in @typescript-eslint/triage-team disagrees with me, I think we'll want type checking in the rule?"](https://github.com/typescript-eslint/typescript-eslint/pull/5848#pullrequestreview-1278082999)
 - ["Adding a TypeOrValueSpecifier ignore option is out-of-scope because that format requires type information. This rule isn't typed right now."](https://github.com/typescript-eslint/typescript-eslint/pull/10477#issuecomment-3482898889)
@@ -299,7 +298,7 @@
 
 **Verify:** Read the ESLint rule's tests and confirm each behavior has an equivalent Flint test.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Take a look at the reference rule docs, source, and tests from ESLint, and fill out this rule."](https://github.com/flint-fyi/flint/pull/962#discussion_r2481525462)
 - ["Refactor to check the actual nodes/tokens, the way e.g. the ESLint rule does"](https://github.com/flint-fyi/flint/pull/423#discussion_r2427020049)
@@ -314,7 +313,7 @@
 
 **Why:** Core rules should avoid 'boundless' defaults and shouldn't put forward opinions on which types match an option. Empty is usually the right default.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["One of the rules of thumb for core lint rules is to avoid "boundless" defaults."](https://github.com/typescript-eslint/typescript-eslint/pull/4436#issuecomment-1021850458)
 - ["We generally try not to put forward opinions like which internal types do or don't match up with specific rule options."](https://github.com/typescript-eslint/typescript-eslint/pull/4436#issuecomment-1019618486)
@@ -328,7 +327,7 @@
 
 **Why:** Workarounds use general functions against how they are meant to be used and are brittle to AST changes. Unexplained behavior should be hammered out before merge.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["I think the fact that this needed an `as` assertion indicates the new code is trying to work around how things are meant o be used."](https://github.com/typescript-eslint/typescript-eslint/pull/8673#discussion_r1537842742)
 - ["Synthesizing nodes is a rather unusual practice. It's brittle to changes in AST and AST handling, as well as verbose."](https://github.com/eslint/eslint/pull/19562#discussion_r2021346630)
@@ -345,7 +344,7 @@
 
 **Verify:** Enable eslint-plugin-eslint-plugin's require-meta-fixable, require-meta-has-suggestions, and no-unused-message-ids on the rule.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["The rule isn't "fixable", it just has suggestions."](https://github.com/JoshuaKGoldberg/eslint-plugin-erasable-syntax-only/pull/12#discussion_r1957404559)
 - ["This rule doesn't make suggestions in its reports."](https://github.com/typescript-eslint/typescript-eslint/pull/4833#discussion_r855614512)
@@ -359,7 +358,7 @@
 
 **Why:** A PR can pass its own tests while heading in a different direction from the issue. If code conflicts with the rule's general purpose, that's a conceptual bug in the algorithm.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["I interpreted the counting as just an implementation detail. The rule's general purpose is to flag unnecessary type parameters."](https://github.com/typescript-eslint/typescript-eslint/pull/9536#issuecomment-2515501665)
 - ["I think the direction here might be a big different from the issue?"](https://github.com/typescript-eslint/typescript-eslint/pull/9536#pullrequestreview-2221811004)
@@ -373,7 +372,7 @@
 
 **Why:** Core should give rules what they reasonably need without knowing about any one rule. Shared logic changes are separate issues and PRs.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["There should never be any rule-specific logic in core."](https://github.com/flint-fyi/flint/pull/1457#discussion_r2677892173)
 - ["Hmm, we normally put rule-specific things in each rule's specific test files."](https://github.com/typescript-eslint/typescript-eslint/pull/6894#discussion_r1167973525)

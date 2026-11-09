@@ -16,12 +16,16 @@ for slug, title in TITLES.items():
     for r in rows:
         tags = [str(r["count"])]
         if r["stale"]: tags.append("possibly stale: confirm against current code")
-        if r["applies_to"] != ["any"]: tags.append("/".join(x for x in r["applies_to"] if x != "any"))
+        if "any" not in r["applies_to"]: tags.append("/".join(r["applies_to"]))
         out += [f"## {r['title']}", "", f"({'; '.join(tags)})", "", r["check"], "", f"Why: {r['why']}", ""]
         if r["verify"]: out += [f"Verify: {r['verify']}", ""]
         out += [f"> {e['quote']}" + "\n" for e in r["examples"][:2]]
-    open(f"skills/lint-rule-review/references/{slug}.md", "w").write("\n".join(out))
+    open(f"skills/lint-rule-review-skill/references/{slug}.md", "w").write("\n".join(out))
 praise = sorted(by["praise"], key=lambda r: -r["count"])
-voice = open("catalog/review-voice.md").read().replace("Your history uses these loosely", "Past reviews used these loosely")
+voice = open("catalog/review-voice.md").read()
 voice += "\n## What earns praise\n\n" + "\n".join(f"- {r['title']}" for r in praise) + "\n"
-open("skills/lint-rule-review/references/review-voice.md", "w").write(voice)
+open("skills/lint-rule-review-skill/references/review-voice.md", "w").write(voice)
+# index.md is written by hand, so catch any title that has drifted from it.
+index = open("skills/lint-rule-review-skill/references/index.md").read()
+missing = [r["title"] for r in C if r["section"] in TITLES and r["title"] not in index]
+assert not missing, missing

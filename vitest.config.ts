@@ -4,7 +4,7 @@ export default defineConfig({
 	test: {
 		clearMocks: true,
 		coverage: {
-			include: ["skills/lint-rule-review/scripts"],
+			include: ["skills/lint-rule-review-skill/scripts"],
 			reporter: ["html", "lcov"],
 		},
 		exclude: ["data", "dist", "eval", "node_modules", "skills"],

@@ -10,7 +10,7 @@
 
 **Verify:** Compare the new option against the rule's other options and neighboring rules' schemas for plurality and casing.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Just requesting changes on the name, since `onlyTrue` is a lot cleaner IMO."](https://github.com/typescript-eslint/typescript-eslint/pull/10639#pullrequestreview-2561099367)
 - ["This is a little imprecise - the option is directed towards superfluous/unnecessary defaults on already-exhaustive switches"](https://github.com/typescript-eslint/typescript-eslint/pull/7539#discussion_r1417891329)
@@ -25,7 +25,7 @@
 
 **Why:** Mismatched names confused the reviewer on first read and cost a re-read. Names should say explicitly what the code does without needing the full intent first.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["my instinct for things named _"try*"_ is that they literally use a `try`/`catch` and/or may throw an error. This doesn't."](https://github.com/typescript-eslint/typescript-eslint/pull/6881#discussion_r1163226929)
 - ["Nit: a more precise name..."](https://github.com/typescript-eslint/typescript-eslint/pull/4965#discussion_r894992383)
@@ -42,7 +42,7 @@
 
 **Verify:** Search the repo for the construct, for example grep -rn "from 'ts-api-utils'" on the rules folder, and compare with the new code.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["If not, please stick with the existing style in a file/project. It's hard to mentally map between two."](https://github.com/typescript-eslint/typescript-eslint/pull/8282#discussion_r1476301824)
 - ["We generally try to stay away from acronyms when possible."](https://github.com/typescript-eslint/typescript-eslint/pull/4924#discussion_r872746386)
@@ -59,7 +59,7 @@
 
 **Verify:** Search the changed rule for short identifiers: grep -nE '\b(fn|decl|num|uniq|prev|ctor)[A-Z]?' on the rule file.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["This code is already kind of complex, let's stick with informative names."](https://github.com/typescript-eslint/typescript-eslint/pull/8282#discussion_r1474803261)
 - ["I'm not a fan of abbreviating names in code. It makes it harder to read & understand because you have to memorize all sorts of common abbreviations"](https://github.com/typescript-eslint/typescript-eslint/pull/5728#discussion_r1146351123)
@@ -74,7 +74,7 @@
 
 **Why:** Implied words add length without information, and repeated terms like two nested things both called the same are confusing to new readers.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["I think _"Sorting"_ is implied by the rule. IMO it'd be a little cleaner to drop it:"](https://github.com/typescript-eslint/typescript-eslint/pull/8760#discussion_r1556186685)
 - ["this is already in a utils folder. Every file here is some kind of utils."](https://github.com/flint-fyi/flint/pull/1758#discussion_r2696582117)
@@ -91,7 +91,7 @@
 
 **Verify:** Diff the list against a sorted copy of itself.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Super nitpicky, but - these _were_ in alphabetical order. Up for alphabetizing?"](https://github.com/typescript-eslint/typescript-eslint/pull/9297#discussion_r1653878852)
 - ["The list is in alphabetical order to make it easier to scan through. Let's move this to the top."](https://github.com/typescript-eslint/typescript-eslint/pull/8084#discussion_r1497757246)
@@ -108,7 +108,7 @@
 
 **Verify:** Run a spell checker over the changed identifiers, for example cspell on the rule file.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Typo:"](https://github.com/typescript-eslint/typescript-eslint/pull/8903#discussion_r1623484934)
 - ["Typo: no 'e' 🙂"](https://github.com/typescript-eslint/typescript-eslint/pull/8502#discussion_r1575346394)
@@ -124,7 +124,7 @@
 
 **Verify:** Search for `} from "typescript"` and `const SyntaxKind = ts.SyntaxKind`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["In every other TS static analysis project I've worked on, including typescript-eslint, we do the `ts` namespace."](https://github.com/flint-fyi/flint/pull/1300#discussion_r2670684610)
 - ["It's the canonical/standard way to import from TS"](https://github.com/flint-fyi/flint/pull/3015#discussion_r3463253315)
@@ -139,7 +139,7 @@
 
 **Why:** A name can be accurate but not precise. Misconceptions are easy, for example `no-partial-destructuring` sounds like it is about runtime rather than types.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["It's accurate, but not precise..."](https://github.com/michaelfaith/eslint-plugin-package-json/pull/11#discussion_r1323871171)
 - ["`no-partial-destructuring` makes it sound not specific to types. I think we'll want to avoid misconceptions like that."](https://github.com/typescript-eslint/typescript-eslint/pull/10344#discussion_r1854639570)

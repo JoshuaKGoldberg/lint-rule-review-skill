@@ -10,7 +10,7 @@
 
 **Verify:** Read each message alone and ask whether it answers why the code is bad.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Telling them something is _"forbidden"_ just makes them resent us."](https://github.com/typescript-eslint/typescript-eslint/pull/5852#discussion_r1111174875)
 - ["I'm trying to overhaul rule messages to always give some sort of _why_ in the `primary` message."](https://github.com/flint-fyi/flint/pull/1758#discussion_r2698421646)
@@ -27,7 +27,7 @@
 
 **Verify:** Search for `messageId:` with a template literal, `message:` in `context.report`, and `{{ }}` placeholders fed by `getText`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Dynamically constructed `messageId`s are nifty, but hard to statically analyze."](https://github.com/typescript-eslint/typescript-eslint/pull/9707#discussion_r1741312355)
 - ["For me, dynamic IDs are a hard blocker. All IDs should be statically constructed for readability - both for us humans and the tools around them."](https://github.com/typescript-eslint/typescript-eslint/pull/9707#discussion_r1967888208)
@@ -44,7 +44,7 @@
 
 **Verify:** Search the rules folder for the same phrase and diff the wording.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["For consistency, let's stick with the same as others."](https://github.com/typescript-eslint/typescript-eslint/pull/9254#discussion_r1634297660)
 - ["To be consistent with the other PR and other rules:"](https://github.com/flint-fyi/flint/pull/2189#discussion_r2743592543)
@@ -61,7 +61,7 @@
 
 **Verify:** Check the reported message in a test or playground with each interpolation value.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["End users generally don't know well what `Expressions of type` means (even though it is more accurate)."](https://github.com/typescript-eslint/typescript-eslint/pull/4000#discussion_r728534372)
 - ["It took me a few tries to parse out the English grammar in that sentence, and I had to rely on already knowing the rule & this PR."](https://github.com/typescript-eslint/typescript-eslint/pull/11704#discussion_r2487190098)
@@ -78,7 +78,7 @@
 
 **Verify:** Report on a function returning a large inferred object type and check the message length.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Directly putting `typeToString`-ified types into error messages makes them super long when the type isn't straightforward."](https://github.com/flint-fyi/flint/pull/161#discussion_r2206023771)
 - ["Most of our error messages either don't mention types or only refer to small names such as identifiers."](https://github.com/typescript-eslint/typescript-eslint/pull/10051#discussion_r1795639908)

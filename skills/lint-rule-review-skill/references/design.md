@@ -45,7 +45,7 @@ Verify: Read `git diff --stat` against the base branch and justify every file ou
 
 ## State the semver impact of each behavior change
 
-(20; typescript-eslint)
+(20)
 
 Classify the change: bugfix, feature, or breaking. New reports in a small-to-medium set of cases aren't breaking; changed defaults and removed options wait for a major. Make the PR title match.
 
@@ -87,7 +87,7 @@ Verify: List every syntax or type form that can express the reported concept, an
 
 ## Use the shared specifier format for type and value allowlists
 
-(13; typescript-eslint)
+(13)
 
 If an option names types or values, use the shared `TypeOrValueSpecifier` format rather than a bespoke string list, and test all sources: file, lib, and package. Bare type-name allowlists are discouraged.
 

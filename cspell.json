@@ -11,7 +11,7 @@
 		"node_modules",
 		"pnpm-lock.yaml",
 		"scripts",
-		"skills/lint-rule-review/references"
+		"skills/lint-rule-review-skill/references"
 	],
 	"words": ["octoguide"]
 }

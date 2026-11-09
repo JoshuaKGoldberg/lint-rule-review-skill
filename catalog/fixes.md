@@ -10,7 +10,7 @@
 
 **Verify:** Apply the fixer to a typed sample and compare. `arr[arr.length - 1]` -> `arr.at(-1)` turns `T` into `T | undefined`, and `delete arr[i]` -> `arr.splice(i, 1)` changes behavior, so both tests need `output: null` plus `suggestions`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["We generally put anything that can break the build into _suggestions_ fixers rather than direct _fix_ fixers."](https://github.com/typescript-eslint/typescript-eslint/pull/6411#discussion_r1267190056)
 - ["the fixers would need to be suggestions given they change code behavior"](https://github.com/typescript-eslint/typescript-eslint/pull/9707#pullrequestreview-2276237784)
@@ -27,7 +27,7 @@
 
 **Verify:** For each fix, add a test with `/* comment */` at every position inside the replaced range and assert it survives or that no fix is offered.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["I regret not thinking more on comments earlier"](https://github.com/typescript-eslint/typescript-eslint/pull/10861#pullrequestreview-2710266709)
 - ["It's hard to write comments handling code that's specific to types of comments & indentation. This very specific, which makes it brittle."](https://github.com/typescript-eslint/typescript-eslint/pull/10137#discussion_r1854400776)
@@ -44,7 +44,7 @@
 
 **Verify:** Assert exact output for `{ "files": ["README.md", null, "./package.json"] }`: the commas must remain valid with the `null` in the middle (the author confirmed that placement is what fails). For `delete arr[i]` with `i: number | string`, assert no suggestion. For wrapped replacements, reuse the edge cases in `getWrappingFixer` tests.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["The suggestion fixer shouldn't suggest something that's a type error - so I think it shouldn't suggest anything at all in this case."](https://github.com/typescript-eslint/typescript-eslint/pull/5852#discussion_r1265791007)
 - ["Autofixers have a bad habit of changing PEMDAS accidentally."](https://github.com/typescript-eslint/typescript-eslint/pull/6641#discussion_r1141148693)
@@ -61,7 +61,7 @@
 
 **Verify:** Assert suggestion output in the rule's tests for every report that has a remedy.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["This should have an auto-fixer. Add one."](https://github.com/flint-fyi/flint/pull/470#discussion_r2647153838)
 - ["The original ESLint rule has an auto-fixer. And what is this "TODO" in suggestions??"](https://github.com/flint-fyi/flint/pull/962#discussion_r2481525462)
@@ -78,7 +78,7 @@
 
 **Verify:** Run the fixer on input with comments and unusual spacing between the nodes; both should survive in the output.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["We generally try to avoid replacing text that isn't actually changed."](https://github.com/typescript-eslint/typescript-eslint/pull/5943#discussion_r1020943866)
 - ["Bigger fix ranges are more likely to overlap if there are multiple reports"](https://github.com/typescript-eslint/typescript-eslint/pull/7691#discussion_r1353258446)
@@ -95,7 +95,7 @@
 
 **Verify:** Assert `messageId` on each entry in `suggestions` and confirm it differs from the error's. Add a case where optional data is absent and read the rendered text.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Suggestions should use a different message ID than the parent report. Editors surface them under the messages, so it'd be confusing to have it be the same as the visible error message."](https://github.com/typescript-eslint/typescript-eslint/pull/5852#discussion_r1264767397)
 - ["This `""` means the suggestion message will show up like:"](https://github.com/flint-fyi/flint/pull/1457#discussion_r2684300683)
@@ -112,7 +112,7 @@
 
 **Verify:** Check that each variable above `context.report` is used by something other than `fix`.
 
-**From your reviews:**
+**From past reviews:**
 
 - ["Let's move any variables only used for fixing inside the `fix`."](https://github.com/michaelfaith/eslint-plugin-package-json/pull/741#discussion_r1921550629)
 - ["These objects don't need to be created until & unless they're needed."](https://github.com/typescript-eslint/typescript-eslint/pull/11032#discussion_r2031609592)
