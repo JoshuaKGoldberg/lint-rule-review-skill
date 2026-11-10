@@ -529,7 +529,13 @@ async function main() {
 				killTests();
 			}, timeoutSeconds * 1000);
 
-			child = spawn(test, { detached: true, shell: true, stdio: "ignore" });
+			// On Windows, a detached child gets its own console window unless it's hidden.
+			child = spawn(test, {
+				detached: true,
+				shell: true,
+				stdio: "ignore",
+				windowsHide: true,
+			});
 			// Without a listener, a failed spawn would crash the run.
 			child.on("error", () => {
 				resolve("fail");
