@@ -30,6 +30,7 @@ The review should answer it.
 
 Repo conventions beat this skill's references.
 The references come from several projects, so if a pattern contradicts what the repo clearly does, follow the repo.
+That decides how to write the code, not whether a reproduced wrong result is a bug.
 
 The references are large, so don't read them end to end.
 Start from [references/index.md](references/index.md), which lists every pattern: skim every title, and read the sections that fit this change.
@@ -45,9 +46,11 @@ Pick from the `design.md` list in the index by the kind of change:
 - **Change to an established rule:** semver impact, sibling rules that need the same change, and whether the change serves the issue.
   Skip the rest.
 
-If the PR is rough, such as having no tests yet or a design that needs rethinking, stop at a high-level review and say so, and skip mutation, which can't tell you anything without tests.
+If the PR is rough, such as having no tests yet or a design that can't serve the issue, stop at a high-level review and say so, and skip mutation, which can't tell you anything without tests.
 Still try the rule on a few cases, since a real bug is worth reporting at any stage.
 Detailed comments on code that's about to change waste everyone's time.
+Suggesting a redesign that still serves the issue, such as narrowing what the rule reports, doesn't make a PR rough when it has tests: review it in full and post bugs as step 5's One root cause says, even when the redesign would also fix a blocking bug.
+If you ask for the redesign rather than offer it, leave out comments other than bugs on code it would remove.
 
 ## 3. Read every added line
 
@@ -75,6 +78,7 @@ Take notes as you go, and sort them in step 5.
 - **Conditions:** does it collapse? `!x || x.kind !== y` becomes `x?.kind !== y`.
   Nested or adjacent `if`s often merge, and a boolean `if` often returns directly.
 - **Guards:** can this state really happen, given the AST and the code above it?
+  Does it skip only what its code comment says, or more, such as a check for any string commented as allowing only the empty string?
 - **Reuse:** does a shared utility do this already?
   Check before accepting any helper.
   Would a helper need fewer parameters if it lived inside `create`?
@@ -152,7 +156,9 @@ Save the base version beside the rule, for example with `git show <base>:./<rule
 If the PR also changes utilities the rule uses, a single base file would import head's versions, so save a copy of base's whole source folder beside `src` and import the base rule from there.
 Then copy [assets/compare-rule.test.ts](assets/compare-rule.test.ts) beside the rule's tests and adjust its marked lines.
 It sorts each case by comparing report counts, and it also records messages, ranges, fix output, suggestions, crashes, and compile errors in each fixture.
-Read `CHANGED OUTPUT` results yourself, because a changed message or fix may be the bug, and ignore any case with `fixtureErrors` until its fixture compiles.
+Read `CHANGED OUTPUT` results yourself, because a changed message or fix may be the bug, and ignore any case with `fixtureErrors` until its fixture compiles, unless its only `fixtureErrors` are a missing module, export, or declaration, or ones the rule exists to report, such as a duplicate declaration for `no-redeclare`.
+For a rule that uses type information, first declare what's missing with the type the case intends and rerun, and if the result changes, use the declared version as the case.
+Step 5 counts these as input that compiles.
 For a PR that adds a fixer, the fix and suggestion output is the main thing to read, so set `expectedOutput` on those cases.
 If the PR adds an option, set `baseOptions` so that the base version's schema accepts the case.
 Without it, the case is judged on head alone.
@@ -216,9 +222,21 @@ Before writing anything, go through each finding:
 
 - **Bugs:** include the case and what actually happened.
   If you couldn't reproduce it, cut it, or downgrade it to a `[Question]` if you still have a specific reason to suspect it.
-- **Order:** regressions come first, then bugs in new code, then existing bugs the PR touches.
-- **One root cause:** if a redesign would fix several bugs, make that one comment and list the cases in it.
-  Keep a separate comment only where a bug needs its own fix either way, such as a regression.
+- **Order:** within each blocking status, regressions come first, then bugs in new code, then existing bugs the PR touches.
+  Put rare bugs after every realistic bug of the same blocking status, in that same order.
+- **One root cause:** if a redesign, including a shared utility from step 4's "Compare copies across rules", would fix several bugs, make that one comment and list the cases in it.
+  That includes each reproduced bug the rest of this step would post whose case the prototype gets right when you run it, with its case and what happens, not only a line in Coverage.
+  If the redesign removes, bypasses, or makes unnecessary code that has a bug, such as a too-broad guard, run that bug's cases on the prototype, and judge them by the PR's stated intent where it covers the case, otherwise by the behavior you decided on in step 4, not by what the redesign reports.
+  A redesign that narrows what the rule matches doesn't turn a guard that skips more than its code comment, description, or docs say into a missed report to defer, as the paragraph after this list that caps non-blocking comments explains.
+  Keep a separate comment at the buggy line for a case the prototype got wrong when you first ran it, a bug that blocks, or a bug in a guard or exemption the redesign removes, bypasses, or makes unnecessary, since the author may not adopt the redesign, and have the redesign comment say "see <file:line>".
+  Keep that comment even if you then change the prototype to get the case right, and don't say the redesign makes that code unnecessary while the prototype still gets its case wrong, unless the redesign deliberately stops reporting that case and its comment says so.
+  The cap paragraph may still merge rare non-blocking ones in the same file, each with its own fix, but a bug in a guard or exemption stays at that guard's line.
+  When adopting the redesign is optional, give each other bug in the same rule that the redesign fixes its standalone fix inside the redesign comment, not a second comment.
+  A bug the redesign fixes in another rule the PR changes that you were asked about gets its own comment in that rule's file, with its case, even when the redesign comment also lists it.
+  Give it its own fix when adopting the shared one is optional, and say "see <file:line>" for the shared fix, as step 4's "Compare copies across rules" says, rather than a "here and elsewhere" under Duplicates.
+  The cap paragraph after this list protects that rule's own comment, as it says.
+  The Existing code bullet below doesn't rule this comment out, and it's a bug, not `[Non-Actionable]`.
+  A bug in a copy in a rule the PR doesn't touch, or that you weren't asked about, gets no comment of its own: name it in the redesign comment if there is one, otherwise in the `[Refactor]` comment.
 - **Repo tooling:** if a bug comes from code or tooling in this repo that the PR doesn't touch, and that code goes against its own evident intent, such as the repo's `RuleTester` dropping a case's `skip`, add a non-blocking note in the bug's comment suggesting a fix there in a followup issue or PR.
   Skip the note when other callers may rely on that behavior or the PR uses that code outside its contract.
   The Existing code bullet below doesn't rule this out, since the note goes in a comment you're already posting.
@@ -226,18 +244,44 @@ Before writing anything, go through each finding:
   Other maintainers have reasonably disagreed on them.
 - **Widen or defer:** if a gap is the same concept as the rule and real users would hit it, ask for it in this PR.
   Otherwise suggest a followup issue.
+  A new exemption that skips more than it says is a bug, not a gap, as the cap paragraph after this list says.
 - **Add or drop an option:** ask for an option only where the rule would otherwise ban valid code, or where a real user asked for one.
 - **Existing code:** leave out problems the PR didn't touch unless they're serious, and mark those `[Non-Actionable]`.
-- **Duplicates:** merge repeats into one comment that says "here and elsewhere".
+- **Duplicates:** merge repeats into one comment that says "here and elsewhere", except as One root cause says for bugs in other rules' files.
 
 Noise costs more than a miss: an author who skims past three weak comments will skim past the real one too.
 Blocking comments should be only what must change before merge.
 Keep at most about eight non-blocking comments, choosing the ones that most improve the code, with a ready-to-apply suggestion wherever the comment requests a change.
+Don't cut a reproduced regression for how rare or unrealistic it is, or because other existing code has the same bug.
+The same goes for a reproduced wrong report, message, fix, or suggestion in a code path the PR adds, such as a new branch, fix, or suggestion, but not code it only moves or rewrites without changing behavior on that input, and for a fix or suggestion the PR adds, including a new branch of an existing one, that drops a source comment.
+The same goes for a bug that One root cause gives its own comment in another rule's file, even when base has it too, if the PR changes the buggy code or it's a fix or suggestion whose output doesn't parse or type-check.
+If the cap cuts the comment that holds the shared fix, move the shared fix into the first remaining comment that says "see <file:line>" for it.
+Output that doesn't parse or type-check means an error the output adds that the Suggestions bullet in extra-checks.md doesn't excuse.
+Each of these needs input that compiles, which includes cases whose only `fixtureErrors` are a missing module, export, or declaration, or ones the rule exists to report, as step 4 says.
+Post these inline, not only in Coverage, say how rare each is, order them as Order says, and choose labels as the rest of this step says.
+A reproduced regression is a bug, not `[Non-Actionable]`, even when the new approach matches how nearby code already works.
+When that approach is one bugs.md warns about, such as comparing source text, try its usual failure cases, such as a comment inside the compared range, and report each one that fails at head and not at base, or in a code path the PR adds.
+A description that names the approach doesn't make its failure cases deliberate.
+Block on one only if both hold: its wrong result is new in this PR, meaning base didn't give that wrong result, or one at least as wrong, on that input, or the rule is new; and it crashes the rule, fails one of the repo's existing tests, its type check, or a CI job, makes an autofix produce invalid code or change behavior or types, makes a fix or suggestion drop a source comment whose loss changes behavior or types, regresses comment handling, or, for anything other than a dropped source comment, would plausibly hit real code.
+A new exemption is a guard or early return the PR adds whose code comment, the description, or docs name the narrower code it's meant to allow.
+A valid test alone doesn't state a purpose, and a description that allows only the narrower case doesn't make the rest deliberate.
+Likewise, no test makes a fix or suggestion deliberate where its output doesn't parse or type-check, whether it expects that output or only a similar shape, such as a new declaration where the code augments an existing one, and nothing makes a duplicate identifier deliberate.
+If a new exemption also skips code the rule should report, don't cut that bug, as with a wrong report.
+It blocks only under the test above, so in an existing rule it can't block on input base didn't report.
+A check the PR adds with no stated purpose that skips a syntax form the rule otherwise covers, such as an `Identifier`-only or `node.computed` check, needs a stated reason, as bugs.md says, so ask at the check why it's needed, as a non-blocking `[Question]` with a case it skips, which competes for the cap.
+If it also skips input base reported, report that as a regression instead.
+Every other missed report in a code path the PR adds that isn't a regression, a new exemption, or such a check follows Widen or defer instead, and the rare ones among those go together in one `[Followup]` comment, which competes for the cap, or a one-sentence followup mention in the review body if they span files.
+A source comment dropped by a fix or suggestion the PR adds, including a new branch of an existing one, where base had no fix or suggestion for that input or its fix or suggestion also lost the comment, doesn't block unless losing it changes behavior or types, as with `@ts-expect-error` or `/* @__PURE__ */`, since fixes.md lets brand-new comment gaps be a followup.
+If the cap still forces cuts after cutting the list below and then the unprotected comments that improve the code least, merge the rare non-blocking findings this paragraph protects in one file that share a label, including regressions, into one comment that lists each case and its fix, with a `suggestion` block only for the line it's on, and then merge across files of the same rule if needed, keeping each rule's bugs in that rule's files and a bug in a new exemption at its guard's line, even past the cap.
+Don't cut a realistic bug in code the PR adds or changes the behavior of, or any finding this paragraph protects, unless the description says it's deliberate.
+Realistic bugs that base has too, in code the PR touches but doesn't add, can go together in one `[Followup]` comment per file if the cap still forces cuts after cutting the list below.
+Choose among the remaining findings as above.
 Cut these first:
 
 - Matters of taste with no real gain in clarity, such as rewording a message or collapsing a conditional that reads fine
 - Anything the description says is deliberate, such as scaffolding for planned work
-- Bugs you tried and couldn't find a real case for, with no specific reason left to suspect them
+- Reproduced bugs that base has too, in code the PR touches but doesn't add or only moves or rewrites without changing behavior on that input, where no code path the PR adds gives the wrong result and no case is realistic, unless One root cause gives it its own comment in another rule's file.
+  Keep one that does serious harm, such as deleting used code, or a fix or suggestion whose output doesn't parse or type-check.
 - Whitespace and quote style
 - Requests for process that adds nothing, such as a tracking issue for every small `TODO`
 
