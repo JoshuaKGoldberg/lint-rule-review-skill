@@ -33,7 +33,7 @@ The references come from several projects, so if a pattern contradicts what the 
 
 The references are large, so don't read them end to end.
 Start from [references/index.md](references/index.md), which lists every pattern, and pull only the sections that fit this change.
-Also read [references/extra-checks.md](references/extra-checks.md), which is short and covers tool pitfalls plus checks for fixers, import rules, and Flint.
+Also read [references/extra-checks.md](references/extra-checks.md), which is short and covers tool pitfalls, typescript-eslint CI variants, and checks for fixers, import rules, and Flint.
 
 ## 2. Check the rule's design
 
@@ -109,6 +109,12 @@ They're quick for the author to accept.
 This step produces the highest-value findings, so don't skip it.
 Start by getting the rule's existing tests to pass, so you have a working command that runs just this rule's tests.
 
+**Set up the CI matrix, not just the default setup.** Read the CI workflow for the rule's package, and if the PR has CI results, reproduce each failure the PR could have caused and treat it as a finding.
+List each variant CI runs, such as another type checker backend, the oldest supported TypeScript, or the oldest supported Node, note which ones CI has already passed on this head, and start setting them up now, because some take a while to install.
+For a typed rule, assume that new checker calls and new test cases can differ by backend and TypeScript version.
+For any rule, assume that a change to `skip`, `only`, or `dependencyConstraints` in a test file can change which cases run on each Node and TypeScript version.
+[references/extra-checks.md](references/extra-checks.md) lists known cases.
+
 **Mutate the conditions.** Run the bundled script from the repo root.
 It needs Node 22.18 or newer, which may differ from the version the repo pins.
 Each mutant is one test run, so run it in the background.
@@ -167,6 +173,11 @@ Keep the cases that exposed something so that they can go in the review as liter
 Literal matters: this maintainer asks for hand-written cases and pushes back on `.map`, factories, and generated tests.
 
 **Prove big suggestions.** If you think a redesign would remove several bugs, prototype it and run the existing tests. "267 of 268 tests pass, and here's why the other fails" is far more useful than a hunch.
+
+**Run the CI variants.** Under each variant CI hasn't passed on this head, run the tests of every rule whose source or tests changed or that uses a changed utility by name, not just through a shared barrel export, plus the repo's docs, schema, and utility tests for anything the PR changed, and treat each failure as a finding.
+First move the base copies and harness copies out of the repo, because a full-suite run picks them up, and some repos fail any file in the rules folder that isn't a rule.
+Then run each case you kept for the review under every variant, as temporary cases in the rule's own test file, since CI never ran them.
+If one fails on the oldest TypeScript only because types print or simplify differently there, gate it as [references/extra-checks.md](references/extra-checks.md) describes, and treat any other failure on a variant as a finding.
 
 **Clean up.** Run `git status` and remove every temporary file before moving on, so the repo is back to how you found it.
 

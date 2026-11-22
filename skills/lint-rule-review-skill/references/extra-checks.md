@@ -33,6 +33,14 @@ A fix that reads well can still change behavior. Run the code before and after w
 - Test realistic dependency layouts: a `node_modules` package with `name` and `version`, `@types`, scoped packages, subpaths, an `exports` map, untyped JS, and workspace symlinks.
 - `declare module` fixtures skip the real resolution path, so they can hide bugs there.
 
+## typescript-eslint CI variants
+
+These were true when written, so confirm them against the current code:
+
+- The tsgo job runs typed rules on a native checker and program that don't support every TypeScript API. Check each new checker call against `UNSUPPORTED_CHECKER_MEMBERS` in `nativeCheckerAdapter.ts`, and each new `program` call against `UNSUPPORTED_PROGRAM_MEMBERS` in `nativeProgramAdapter.ts`, both in `packages/typescript-estree/src/native/`. If a call is listed, compute the answer from syntax or a supported call. Run the tests that way with `TYPESCRIPT_ESLINT_EXPERIMENTAL_BACKEND=tsgo TYPESCRIPT_ESLINT_PROJECT_SERVICE=true` and `--testTimeout=30000` on Node 22.12 or newer, as CI does. Under the test runner it falls back to the classic backend without a warning on older Node or other TypeScript versions, so add `DEBUG=typescript-eslint:typescript-estree:parseSettings:createParseSettings` and check that no "Falling back to the classic backend" line prints.
+- The oldest-TypeScript job runs the minimum supported TypeScript, where types can print or simplify differently. To check one type, install that TypeScript in a scratch folder and print the type, rather than reinstalling the repo. To run the suite, copy that job's steps, including its fixture `tsconfig` rewrite, in a copy of the repo.
+- Gate a case that needs newer TypeScript behavior with `dependencyConstraints: { typescript: '<version>' }`, found by checking the type on old and new TypeScript. The first `dependencyConstraints` in a `ruleTester.run()` call makes `RuleTester` overwrite every case's `skip` in that call, which drops checks such as a Node version skip. So if the call has a `skip` and no constraints yet, use `skip: !typescriptVersionIsAtLeast['<version>']` from `@typescript-eslint/type-utils` instead. If it already has constraints, any `skip` in it is already ignored, which is a finding in itself, so use `dependencyConstraints`. While any case has `only`, constraints aren't applied at all, so don't reproduce this with `only`.
+
 ## Flint
 
 There's no compare harness for Flint, and its internals change, so stay on the public `RuleTester`:
