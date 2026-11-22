@@ -33,7 +33,7 @@ The references come from several projects, so if a pattern contradicts what the 
 
 The references are large, so don't read them end to end.
 Start from [references/index.md](references/index.md), which lists every pattern: skim every title, and read the sections that fit this change.
-Also read [references/extra-checks.md](references/extra-checks.md), which is short and covers tool pitfalls, typescript-eslint CI variants, and checks for fixers, import rules, and Flint.
+Also read [references/extra-checks.md](references/extra-checks.md), which is short and covers tool pitfalls, running rules over real code, typescript-eslint CI variants, and checks for fixers, import rules, and Flint.
 
 If the PR changes several rules, take each rule through step 4 as far as "Compare copies across rules", then do that pass, big suggestions, and cleanup once for the whole PR.
 
@@ -149,6 +149,7 @@ Also try by hand anything it can't reach that the PR depends on, such as swappin
 **Compare head and base.** For a change to an existing rule, this is the most important check.
 A regression in code that used to work matters far more than a gap that was already there, and you can't tell them apart without running both versions.
 Save the base version beside the rule, for example with `git show <base>:./<rule> > <rule-dir>/<name>.base-tmp.ts`, or by reverse-applying the diff.
+If the PR also changes utilities the rule uses, a single base file would import head's versions, so save a copy of base's whole source folder beside `src` and import the base rule from there.
 Then copy [assets/compare-rule.test.ts](assets/compare-rule.test.ts) beside the rule's tests and adjust its marked lines.
 It sorts each case by comparing report counts, and it also records messages, ranges, fix output, suggestions, crashes, and compile errors in each fixture.
 Read `CHANGED OUTPUT` results yourself, because a changed message or fix may be the bug, and ignore any case with `fixtureErrors` until its fixture compiles.
@@ -158,6 +159,13 @@ Without it, the case is judged on head alone.
 
 For a new rule, import it as both `head` and `base`, so that the harness reports `ok` or `WRONG` instead of comparing versions.
 If the harness doesn't fit the plugin, use a temporary test file in the repo's own test harness instead.
+
+For a change to an existing rule's logic or fixer, also run both versions over real code, because hand-written cases only find what you thought of.
+Use the repo itself plus one or two outside projects that use the syntax the rule matches and don't already enable the rule, with their dependencies installed if the rule needs type information, because code that already passes a rule at base can show new reports but never lost ones.
+Run each rule with its default options, plus any options the changed code needs in order to run, and set it up as "Running both versions over real code" in [references/extra-checks.md](references/extra-checks.md) describes.
+Start it only once no mutation run is active, because mutation edits the rule in place.
+Record where base and head differ, group the differences by rule and message, reduce one of each group to a literal case, and sort it as intended or a regression.
+For a new rule, run it over the same code and read what it reports.
 
 **Write adversarial cases.** For each behavior the PR adds or changes, go through the category list in [references/test-cases.md](references/test-cases.md), the index titles for `bugs.md` and `fixes.md`, and the rule logic, fixer, and import checks in [references/extra-checks.md](references/extra-checks.md).
 Write at least one literal case for each one that applies, or say why no case is possible.

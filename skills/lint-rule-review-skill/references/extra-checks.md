@@ -10,6 +10,15 @@ Checks found while trialing this skill. Unlike the other references, they don't 
 - Check exit codes, not grepped output. Colored test output and shell quirks can turn a failure into an empty result.
 - If the PR's own tests fail at its head, run a sibling rule's tests as a control. Then find the smallest change that makes them pass, and record it in the review.
 
+## Running both versions over real code
+
+- Make a temporary copy of the compare harness that loops over each project's files and lints each one from disk under its real path, with an `it` timeout long enough for the whole run.
+- Give the `Linter` a `cwd` of the project root, because it reports "No matching configuration" for any file outside its `cwd`, and both versions then look identical.
+- For a typed rule, replace `project` with `projectService: true` and a `tsconfigRootDir` of the project root, and for an untyped rule, drop the project settings. Drop `diagnostics`, `classify`, and the `verifyAndFix` call, and compare each message's rule, position, text, `fix`, and suggestions instead.
+- If the PR changes several rules, register the head of every rule whose source changed or that uses a changed utility by name in one config, and its base under the same name in another, so each file is linted once per version rather than once per rule. Give base its `baseOptions` where the PR adds an option, as in the harness. A rule that also needs non-default options gets one more pair of configs per set of options.
+- Linting stops at the first rule that throws or rejects its options. When either version throws on a file, record the crash under the rule the error names, and lint that file again in both versions without that rule.
+- Count the files with a fatal message, because a file outside every `tsconfig` fails the same way in both versions.
+
 ## Rule logic
 
 - **A visitor or selector that matches nothing:** a mistyped selector, or a visitor key that isn't a real node kind, silently disables the rule. Confirm that each listener actually fires.
