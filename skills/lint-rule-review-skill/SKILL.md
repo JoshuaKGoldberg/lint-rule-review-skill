@@ -35,6 +35,8 @@ The references are large, so don't read them end to end.
 Start from [references/index.md](references/index.md), which lists every pattern: skim every title, and read the sections that fit this change.
 Also read [references/extra-checks.md](references/extra-checks.md), which is short and covers tool pitfalls, typescript-eslint CI variants, and checks for fixers, import rules, and Flint.
 
+If the PR changes several rules, take each rule through step 4 as far as "Compare copies across rules", then do that pass, big suggestions, and cleanup once for the whole PR.
+
 ## 2. Check the rule's design
 
 Pick from the `design.md` list in the index by the kind of change:
@@ -176,6 +178,12 @@ Look for:
 
 Keep the cases that exposed something so that they can go in the review as literal test cases.
 Literal matters: this maintainer asks for hand-written cases and pushes back on `.map`, factories, and generated tests.
+
+**Compare copies across rules.** When a PR changes several rules, do one pass over the whole diff after reviewing each rule, because a per-rule review can't see that two rules solved the same problem differently.
+If you were asked about only some of its rules, compare just their new helpers and guards against the rest of the diff.
+Group new helpers, guards, and repeated blocks of fix code by what they decide or do, such as whether a declaration merges, whether a name is the real global, where a node ends including parentheses, whether a fix needs a leading `;`, or removing an `await` before a line break.
+Include existing utilities for the same thing.
+Wherever there are two or more copies, run each case that one copy handles against the others, report the ones that disagree, and recommend one shared utility where the logic is nontrivial.
 
 **Prove big suggestions.** If you think a redesign would remove several bugs, prototype it and run the existing tests. "267 of 268 tests pass, and here's why the other fails" is far more useful than a hunch.
 
