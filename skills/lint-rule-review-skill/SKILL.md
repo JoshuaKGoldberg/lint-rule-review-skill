@@ -33,7 +33,7 @@ The references come from several projects, so if a pattern contradicts what the 
 
 The references are large, so don't read them end to end.
 Start from [references/index.md](references/index.md), which lists every pattern: skim every title, and read the sections that fit this change.
-Also read [references/extra-checks.md](references/extra-checks.md), which is short and covers tool pitfalls, running rules over real code, typescript-eslint CI variants, and checks for fixers, import rules, and Flint.
+Also read [references/extra-checks.md](references/extra-checks.md), which is short and covers tool pitfalls, running rules over real code, typescript-eslint CI variants, and checks for fixers and suggestions, import rules, and Flint.
 
 If the PR changes several rules, take each rule through step 4 as far as "Compare copies across rules", then do that pass, big suggestions, and cleanup once for the whole PR.
 
@@ -167,7 +167,7 @@ Start it only once no mutation run is active, because mutation edits the rule in
 Record where base and head differ, group the differences by rule and message, reduce one of each group to a literal case, and sort it as intended or a regression.
 For a new rule, run it over the same code and read what it reports.
 
-**Write adversarial cases.** For each behavior the PR adds or changes, go through the category list in [references/test-cases.md](references/test-cases.md), the index titles for `bugs.md` and `fixes.md`, and the rule logic, fixer, and import checks in [references/extra-checks.md](references/extra-checks.md).
+**Write adversarial cases.** For each behavior the PR adds or changes, go through the category list in [references/test-cases.md](references/test-cases.md), the index titles for `bugs.md` and `fixes.md`, and the "Rule logic", "Any fixer or suggestion" (plus "Adding a fixer to an existing rule" when the PR adds one), and "Import and export rules" sections of [references/extra-checks.md](references/extra-checks.md).
 Write at least one literal case for each one that applies, or say why no case is possible.
 For each new helper, also grep `util` and sibling rules for the same logic, as step 3's reuse question and simplification.md's "Move shared logic into one utility" ask, and run each copy's cases against the other, since either one can be the wrong copy.
 Picking selectively is how a category that clearly matches gets skipped.
