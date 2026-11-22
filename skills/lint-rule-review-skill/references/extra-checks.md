@@ -25,6 +25,11 @@ Checks found while trialing this skill. Unlike the other references, they don't 
 - **Recursive type walks:** test generic types that expand on each recursion, such as `type Nested<T> = { value: T; next: Nested<T[]> }`, and self-referencing types. Check termination and time, not just the result.
 - **Static values or the checker:** `getStaticValue` answers questions about runtime values in this file. For what a key resolves to on a type, including `Symbol()`, enums, and imported keys, the checker usually knows more. Prefer the checker when the question is about types.
 
+## Any fixer
+
+- **A changed first token:** a fix that removes, replaces, or wraps the first token of a statement or class member, such as `void`, `await`, `!`, or a modifier like `public`, can make it continue the line before it when that line has no semicolon. For each first token the fix can produce, test it after a line that ends in an identifier and after one that ends in `x++`, and for a class member, after a field like `x = y`. Other common endings, such as `)` other than the end of a control-statement header or a `do`-`while` condition, `]`, a literal, a template, or the `}` of an object, `function`, or `class` expression, but not of an arrow function's block body, continue the line the same way an identifier does. After `++`, `--`, or an `as T` or `satisfies T` type, only `+`, `-`, `/`, and `<` continue a statement, and in a class body so do `*` and a member named `in` or `instanceof`, so `x++\nvoid -y;` must not become `x++\n-y;`, which parses as `x++ - y`.
+- **Shared helpers:** when a fix calls a helper such as `needsPrecedingSemicolon`, check its contract against what the fix inserts. `needsPrecedingSemicolon` is written only for `(`, `[`, and a backtick.
+
 ## Adding a fixer to an existing rule
 
 A fix that reads well can still change behavior. Run the code before and after where you can, and check:
