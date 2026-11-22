@@ -211,6 +211,9 @@ Before writing anything, go through each finding:
 - **Order:** regressions come first, then bugs in new code, then existing bugs the PR touches.
 - **One root cause:** if a redesign would fix several bugs, make that one comment and list the cases in it.
   Keep a separate comment only where a bug needs its own fix either way, such as a regression.
+- **Repo tooling:** if a bug comes from code or tooling in this repo that the PR doesn't touch, and that code goes against its own evident intent, such as the repo's `RuleTester` dropping a case's `skip`, add a non-blocking note in the bug's comment suggesting a fix there in a followup issue or PR.
+  Skip the note when other callers may rely on that behavior or the PR uses that code outside its contract.
+  The Existing code bullet below doesn't rule this out, since the note goes in a comment you're already posting.
 - **Contested positions:** treat these as non-blocking questions: `in` checks on nodes, `esquery` use, option schema shape, and `import ts` style.
   Other maintainers have reasonably disagreed on them.
 - **Widen or defer:** if a gap is the same concept as the rule and real users would hit it, ask for it in this PR.
