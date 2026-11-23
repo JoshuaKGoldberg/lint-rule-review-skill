@@ -24,6 +24,7 @@ Checks found while trialing this skill. Unlike the other references, they don't 
 - **A visitor or selector that matches nothing:** a mistyped selector, or a visitor key that isn't a real node kind, silently disables the rule. Confirm that each listener actually fires.
 - **Recursive type walks:** test generic types that expand on each recursion, such as `type Nested<T> = { value: T; next: Nested<T[]> }`, and self-referencing types. Check termination and time, not just the result.
 - **Static values or the checker:** `getStaticValue` answers questions about runtime values in this file. For what a key resolves to on a type, including `Symbol()`, enums, and imported keys, the checker usually knows more. Prefer the checker when the question is about types.
+- **Following functions to their calls:** if the rule tracks code that runs through a function, such as a callback that writes to `this`, test a function stored in a variable and called later, as well as one passed directly as an argument.
 
 ## Any fixer
 
