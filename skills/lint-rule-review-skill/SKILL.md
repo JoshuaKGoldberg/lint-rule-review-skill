@@ -32,7 +32,7 @@ Repo conventions beat this skill's references.
 The references come from several projects, so if a pattern contradicts what the repo clearly does, follow the repo.
 
 The references are large, so don't read them end to end.
-Start from [references/index.md](references/index.md), which lists every pattern, and pull only the sections that fit this change.
+Start from [references/index.md](references/index.md), which lists every pattern: skim every title, and read the sections that fit this change.
 Also read [references/extra-checks.md](references/extra-checks.md), which is short and covers tool pitfalls, typescript-eslint CI variants, and checks for fixers, import rules, and Flint.
 
 ## 2. Check the rule's design
@@ -157,7 +157,12 @@ Without it, the case is judged on head alone.
 For a new rule, import it as both `head` and `base`, so that the harness reports `ok` or `WRONG` instead of comparing versions.
 If the harness doesn't fit the plugin, use a temporary test file in the repo's own test harness instead.
 
-**Write adversarial cases.** Pick the categories from [references/test-cases.md](references/test-cases.md) that fit the syntax and types this rule touches, and write literal cases.
+**Write adversarial cases.** For each behavior the PR adds or changes, go through the category list in [references/test-cases.md](references/test-cases.md), the index titles for `bugs.md` and `fixes.md`, and the rule logic, fixer, and import checks in [references/extra-checks.md](references/extra-checks.md).
+Write at least one literal case for each one that applies, or say why no case is possible.
+For each new helper, also grep `util` and sibling rules for the same logic, as step 3's reuse question and simplification.md's "Move shared logic into one utility" ask, and run each copy's cases against the other, since either one can be the wrong copy.
+Picking selectively is how a category that clearly matches gets skipped.
+If a change sends inputs into a different existing branch, run the categories that fit that branch on the inputs it now gets, such as every contextual-type position for a branch that reads the contextual type.
+Record this in the review's Coverage section, one line per behavior.
 Decide the correct behavior before running each case, because it stops you rationalizing whatever comes back.
 Print message data as well as report counts, since a wrong type name in a message is a bug too.
 Pair a case in new syntax with a control in old syntax, such as a symbol key with the same case using a string key.
@@ -240,10 +245,15 @@ Use this structure:
 
 Evidence: <What you ran and what happened, or "not reproduced">
 
+## Coverage
+
+<One line per behavior the PR adds or changes: each category that applies, and the case you ran for it or why no case is possible>
+
 ## Not checked
 
 <Anything you couldn't run or verify, and why>
 ````
 
 Mark each comment `blocking` or `non-blocking`, ordered blocking first. "Evidence" is for the user and wouldn't be posted, so be plain there about how strong each finding is.
+Coverage is also for the user and wouldn't be posted.
 Finish by giving the user the verdict, the blocking findings, and the file path.
