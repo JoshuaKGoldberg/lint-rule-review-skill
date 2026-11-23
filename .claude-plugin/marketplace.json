@@ -1,6 +1,6 @@
 {
 	"name": "lint-rule-review-skill",
-	"description": "Thoroughly reviews custom ESLint rules. 🕵️",
+	"description": "Thoroughly reviews custom lint rules. 🕵️",
 	"owner": {
 		"name": "Josh Goldberg"
 	},
@@ -8,7 +8,7 @@
 		{
 			"name": "lint-rule-review-skill",
 			"source": "./",
-			"description": "Thoroughly reviews custom ESLint rules. 🕵️"
+			"description": "Thoroughly reviews custom lint rules. 🕵️"
 		}
 	]
 }

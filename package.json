@@ -2,7 +2,7 @@
 	"name": "lint-rule-review-skill",
 	"version": "0.0.0",
 	"private": true,
-	"description": "Claude Code skill that thoroughly reviews custom ESLint rules. 🕵️",
+	"description": "Claude Code skill that thoroughly reviews custom lint rules. 🕵️",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/JoshuaKGoldberg/lint-rule-review-skill.git"
