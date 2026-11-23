@@ -22,7 +22,7 @@ The body is a short summary (median 22 words), and the detail lives in inline co
 - **Waivers:** say so when a comment isn't blocking: "Not a blocker", "Totally up to you."
 - **Direct requests:** save these for real problems, keep them polite, and give the cost: "Could you please revert..."
 - **Opinions:** own them as personal: "IMO", "just a personal preference of mine."
-- **Repeats:** write "here and elsewhere" instead of commenting on each site.
+- **Repeats:** write "here and elsewhere" instead of commenting on each site, except for a bug that SKILL.md step 5's One root cause gives its own comment in another rule's file.
 - **Evidence:** report what was actually tried: "I tried removing this check locally and no unit tests failed."
 - **Praise:** short, specific, and it names the thing: "I like how you split this up into functions."
 
