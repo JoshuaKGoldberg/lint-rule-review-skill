@@ -1,6 +1,6 @@
 {
 	"name": "lint-rule-review-skill",
-	"description": "Thoroughly reviews custom ESLint rules. 🕵️",
+	"description": "Thoroughly reviews custom lint rules. 🕵️",
 	"author": {
 		"name": "Josh Goldberg"
 	},

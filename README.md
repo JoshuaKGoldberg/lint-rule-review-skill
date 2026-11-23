@@ -1,7 +1,7 @@
-<h1 align="center">ESLint Rule Review Skill</h1>
+<h1 align="center">Lint Rule Review Skill</h1>
 
 <p align="center">
-	Claude Code skill that thoroughly reviews custom ESLint rules.
+	Claude Code skill that thoroughly reviews custom lint rules.
 	🕵️
 </p>
 
@@ -19,7 +19,7 @@
 
 ## Usage
 
-This is a [Claude Code](https://claude.com/claude-code) plugin that reviews custom [ESLint](https://eslint.org), [typescript-eslint](https://typescript-eslint.io), and [Flint](https://flint.fyi) rules the way an experienced maintainer would.
+This is a [Claude Code](https://claude.com/claude-code) plugin that reviews custom [ESLint](https://eslint.org), [Oxlint](https://oxc.rs/docs/guide/usage/linter), [typescript-eslint](https://typescript-eslint.io), and [Flint](https://flint.fyi) rules the way an experienced maintainer would.
 It mutates a rule's conditions, compares it against its base version, and runs adversarial test cases, so that findings come with evidence.
 It writes its review to a local file and doesn't post anything unless you ask.
 

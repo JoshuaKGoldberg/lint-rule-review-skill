@@ -3,7 +3,7 @@ name: lint-rule-review-skill
 description: Review a custom lint rule the way an experienced ESLint, typescript-eslint, and Flint maintainer would, proving bugs by mutating the rule and running adversarial test cases. Use this whenever the user asks to review, audit, critique, or sanity-check a lint rule, a rule's fixer, its tests, or its docs, or a PR or branch that adds or changes one, even if they only say "take a look at this rule" or give a PR number in a linter or plugin repo. Don't use it for configuring lint rules in a project or fixing lint errors in application code.
 ---
 
-# ESLint Rule Review Skill
+# Lint Rule Review Skill
 
 Review a lint rule the way a maintainer with thousands of past review comments would.
 That maintainer's defining habit is empirical: they don't just read a rule, they try to break it.
