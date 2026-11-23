@@ -35,7 +35,7 @@ The references are large, so don't read them end to end.
 Start from [references/index.md](references/index.md), which lists every pattern: skim every title, and read the sections that fit this change.
 Also read [references/extra-checks.md](references/extra-checks.md), which is short and covers tool pitfalls, running rules over real code, typescript-eslint CI variants, and checks for fixers and suggestions, import rules, and Flint.
 
-If the PR changes several rules, take each rule through step 4 as far as "Compare copies across rules", then do that pass, big suggestions, and cleanup once for the whole PR.
+If the PR changes several rules, set up the CI matrix once, take each rule through mutation, head-vs-base cases, and adversarial cases, then do the rest of step 4 once for the whole PR: the real-code run, the cross-rule pass, big suggestions, the CI-variant runs, and cleanup.
 
 ## 2. Check the rule's design
 
@@ -188,10 +188,18 @@ Keep the cases that exposed something so that they can go in the review as liter
 Literal matters: this maintainer asks for hand-written cases and pushes back on `.map`, factories, and generated tests.
 
 **Compare copies across rules.** When a PR changes several rules, do one pass over the whole diff after reviewing each rule, because a per-rule review can't see that two rules solved the same problem differently.
-If you were asked about only some of its rules, compare just their new helpers and guards against the rest of the diff.
-Group new helpers, guards, and repeated blocks of fix code by what they decide or do, such as whether a declaration merges, whether a name is the real global, where a node ends including parentheses, whether a fix needs a leading `;`, or removing an `await` before a line break.
+If you were asked about only some of its rules, compare just the helpers, guards, and self-contained loops or blocks they add, whether in a helper or inline, against the rest of the diff, utilities included.
+Group new helpers, guards, and repeated blocks of code by what they decide or do, such as whether a call is a known array method, whether a name is the real global, where a node ends including parentheses, reading a static property name, or skipping TypeScript wrappers such as `as`, `!`, and `satisfies`.
+Find copies by what the code checks, such as the node types it walks through, not by name, and search the whole diff for each one.
 Include existing utilities for the same thing.
 Wherever there are two or more copies, run each case that one copy handles against the others, report the ones that disagree, and recommend one shared utility where the logic is nontrivial.
+Some copies differ on purpose, such as a rule that checks for `any` and unwraps `!` but not `as`, because an `as` can turn `any` into a safe type, so report a disagreement only when a copy gives a wrong result for its own rule, or, for a utility, for any caller.
+If you post a bug in which a copy gives a wrong result for its own rule, or for a utility, for any caller, put the shared-utility suggestion in the first such bug's comment, in step 5's Order, and say "see <file:line>" in the others.
+Build it on the copy or existing utility whose answers are right for every rule that would call it, or, if none is, on the one closest to that, naming the fix it needs for each case it gets wrong, and leave out any copy that is right for its own rule but differs on purpose, as in the `any` example, so another caller can't use its answer.
+Say adopting it is optional as long as the bug is fixed, unless it's the smallest fix, leave the comment's blocking status to step 5, and leave that group out of the `[Refactor]` comment.
+If that bug isn't posted, because it's in a rule the PR doesn't touch or you weren't asked about, or step 5's cap on non-blocking comments cut it, which it can't for a bug step 5 protects, keep the group in the `[Refactor]` comment, name the case the wrong copy gets wrong, and build the suggested helper on a copy that gets it right, or say the existing utility needs that fix first.
+Put every other group of two or more nontrivial copies, such as a loop over several node types, that agree, or that differ only where either copy's answer would be right for every caller, leaving out any copy that is right for its own rule but differs on purpose, in one non-blocking `[Refactor]` comment that lists each group and its files and suggests a shared helper, or the existing utility where one already does it, or in a `[Followup]` for a large PR.
+That comment competes for the cap like any other non-blocking comment, and if the cap cuts it, keep a one-sentence followup mention of the groups, their files, and any case a copy gets wrong in the review body.
 
 **Prove big suggestions.** If you think a redesign would remove several bugs, prototype it and run the existing tests. "267 of 268 tests pass, and here's why the other fails" is far more useful than a hunch.
 
